@@ -7,14 +7,17 @@
 
 import Foundation
 
+//MARK: FavoriteViewProtocol
 protocol FavoriteViewProtocol: AnyObject {
     
 }
 
+//MARK: - FavoriteViewPresenterProtocol
 protocol FavoriteViewPresenterProtocol: AnyObject {
     init(view: FavoriteViewProtocol, router: RouterProtocol)
 }
 
+//MARK: - FavoritePresenter
 final class FavoritePresenter: FavoriteViewPresenterProtocol {
     weak var view: FavoriteViewProtocol?
     var router: RouterProtocol

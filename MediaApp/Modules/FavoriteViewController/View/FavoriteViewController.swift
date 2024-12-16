@@ -8,14 +8,17 @@
 import UIKit
 
 final class FavoriteViewController: UIViewController {
+    //MARK: - Variables
     var presenter: FavoriteViewPresenterProtocol?
     
+    //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemPink
     }
 }
 
+//MARK: - FavoriteViewProtocol
 extension FavoriteViewController: FavoriteViewProtocol {
     
 }

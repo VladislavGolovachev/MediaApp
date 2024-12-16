@@ -7,14 +7,17 @@
 
 import Foundation
 
+//MARK: RandomViewProtocol
 protocol RandomViewProtocol: AnyObject {
     
 }
 
+//MARK: - RandomViewPresenterProtocol
 protocol RandomViewPresenterProtocol: AnyObject {
     init(view: RandomViewProtocol, router: RouterProtocol)
 }
 
+//MARK: - RandomPresenter
 final class RandomPresenter: RandomViewPresenterProtocol {
     weak var view: RandomViewProtocol?
     var router: RouterProtocol

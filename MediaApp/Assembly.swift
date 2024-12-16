@@ -7,12 +7,14 @@
 
 import UIKit
 
+//MARK: AssemblyProtocol
 protocol AssemblyProtocol {
     func createRandomModule(router: RouterProtocol) -> UIViewController
     func createFavoriteModule(router: RouterProtocol) -> UIViewController
     func createDetailModule(router: RouterProtocol) -> UIViewController
 }
 
+//MARK: - Assembly
 struct Assembly: AssemblyProtocol {
     func createRandomModule(router: RouterProtocol) -> UIViewController {
         let vc = RandomViewController()

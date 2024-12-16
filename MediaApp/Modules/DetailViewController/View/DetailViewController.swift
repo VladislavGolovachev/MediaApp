@@ -8,14 +8,17 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
+    //MARK: - Variables
     var presenter: DetailViewPresenterProtocol?
     
+    //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
     }
 }
 
+//MARK: - DetailViewProtocol
 extension DetailViewController: DetailViewProtocol {
     
 }
