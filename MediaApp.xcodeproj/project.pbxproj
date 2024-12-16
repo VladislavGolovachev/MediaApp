@@ -106,41 +106,41 @@
 		826B19702D104F5E0056D4F9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				826B19722D1051F80056D4F9 /* RandomViewController */,
-				826B19732D10525A0056D4F9 /* FavoriteViewController */,
-				826B19742D1052640056D4F9 /* DetailViewController */,
+				826B19722D1051F80056D4F9 /* RandomModule */,
+				826B19732D10525A0056D4F9 /* FavoriteModule */,
+				826B19742D1052640056D4F9 /* DetailModule */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		826B19722D1051F80056D4F9 /* RandomViewController */ = {
+		826B19722D1051F80056D4F9 /* RandomModule */ = {
 			isa = PBXGroup;
 			children = (
 				826B197D2D1052F90056D4F9 /* View */,
 				826B197C2D1052EE0056D4F9 /* Presenter */,
 				826B197B2D1052E30056D4F9 /* Model */,
 			);
-			path = RandomViewController;
+			path = RandomModule;
 			sourceTree = "<group>";
 		};
-		826B19732D10525A0056D4F9 /* FavoriteViewController */ = {
+		826B19732D10525A0056D4F9 /* FavoriteModule */ = {
 			isa = PBXGroup;
 			children = (
 				826B197E2D1053100056D4F9 /* View */,
 				826B197F2D1053160056D4F9 /* Presenter */,
 				826B19802D10531F0056D4F9 /* Model */,
 			);
-			path = FavoriteViewController;
+			path = FavoriteModule;
 			sourceTree = "<group>";
 		};
-		826B19742D1052640056D4F9 /* DetailViewController */ = {
+		826B19742D1052640056D4F9 /* DetailModule */ = {
 			isa = PBXGroup;
 			children = (
 				826B19812D10532B0056D4F9 /* View */,
 				826B19822D1053340056D4F9 /* Presenter */,
 				826B19832D1053380056D4F9 /* Model */,
 			);
-			path = DetailViewController;
+			path = DetailModule;
 			sourceTree = "<group>";
 		};
 		826B197B2D1052E30056D4F9 /* Model */ = {
