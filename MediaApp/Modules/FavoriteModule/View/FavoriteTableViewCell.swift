@@ -11,31 +11,107 @@ final class FavoriteTableViewCell: UITableViewCell {
     //MARK: - Variables
     static let reuseIdentifier = "FavoritePictureIdentifier"
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    private let backView: UIView = {
+        let view = UIView()
+        view.backgroundColor = LocalConstants.cellColor
+        view.layer.cornerRadius = LocalConstants.cornerRadius
         
-        print("awake from nib")
-    }
+        return view
+    }()
+    private lazy var pictureImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = GlobalConstants.Color.background
+        imageView.image = UIImage(systemName: "bell")
+        
+        imageView.layer.cornerRadius = LocalConstants.cornerRadius
+        
+        return imageView
+    }()
+    private let authorNameLabel: UILabel = {
+        let label = UILabel()
+        
+        //FIXME: Remove the text!!!
+        label.text = "Example"
+        label.font = LocalConstants.font
+        
+        return label
+    }()
     
+    //MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        print("init style reuseidentifier")
+        addSubviews()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+    //MARK: - UITableViewCell's Functions
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        pictureImageView.image = nil
+        authorNameLabel.text = String()
+    }
+}
+
+//MARK: - Private Functions
+extension FavoriteTableViewCell {
+    private func addSubviews() {
+        backView.addSubview(pictureImageView)
+        backView.addSubview(authorNameLabel)
+        contentView.addSubview(backView)
+    }
+    
+    private func setupConstraints() {
+        backView.translatesAutoresizingMaskIntoConstraints = false
+        pictureImageView.translatesAutoresizingMaskIntoConstraints = false
+        authorNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        let verticalPadding = LocalConstants.Padding.cellVertical / 2.0
+        
+        NSLayoutConstraint.activate([
+            backView.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                          constant: verticalPadding),
+            backView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
+                                             constant: -verticalPadding),
+            backView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
+                                              constant: LocalConstants.Padding.cellHorizontal),
+            backView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+                                              constant: -LocalConstants.Padding.cellHorizontal),
+            
+            pictureImageView.topAnchor.constraint(equalTo: backView.topAnchor,
+                                                  constant: LocalConstants.Padding.content),
+            pictureImageView.bottomAnchor.constraint(equalTo: backView.bottomAnchor,
+                                                  constant: -LocalConstants.Padding.content),
+            pictureImageView.leadingAnchor.constraint(equalTo: backView.leadingAnchor,
+                                                  constant: LocalConstants.Padding.content),
+            pictureImageView.widthAnchor.constraint(equalTo: pictureImageView.heightAnchor,
+                                                    multiplier: 1),
+            
+            authorNameLabel.leadingAnchor.constraint(greaterThanOrEqualTo: pictureImageView.trailingAnchor),
+            authorNameLabel.trailingAnchor.constraint(equalTo: backView.trailingAnchor,
+                                                      constant: -LocalConstants.Padding.content),
+            authorNameLabel.centerYAnchor.constraint(equalTo: pictureImageView.centerYAnchor)
+        ])
+    }
+}
+
+//MARK: - Local Constants
+extension FavoriteTableViewCell {
+    private enum LocalConstants {
+        static let font: UIFont = .systemFont(ofSize: 18,
+                                              weight: .medium)
+        static let cellColor = UIColor(white: 0.9, alpha: 0.3)
+        static let cornerRadius: CGFloat = 8
+        
+        enum Padding {
+            static let content: CGFloat         = 8
+            static let cellHorizontal: CGFloat  = 8
+            static let cellVertical: CGFloat    = 4
+        }
     }
 }

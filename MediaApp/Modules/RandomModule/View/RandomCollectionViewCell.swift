@@ -11,7 +11,17 @@ final class RandomCollectionViewCell: UICollectionViewCell {
     //MARK: - Variables
     static let reuseIdentifier = "RandomPictureIdentifier"
     
-    private let imageView = UIImageView()
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        
+        imageView.backgroundColor = GlobalConstants.Color.background
+        imageView.layer.cornerRadius = LocalConstants.cornerRadius
+        
+        imageView.contentMode = LocalConstants.contentMode
+        imageView.clipsToBounds = true
+        
+        return imageView
+    }()
     
     //MARK: - Initializers
     override init(frame: CGRect) {
@@ -19,17 +29,13 @@ final class RandomCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(imageView)
         setupConstraints()
-        
-        imageView.contentMode = LocalConstants.contentMode
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = LocalConstants.cornerRadius
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    //MARK: - CollectionViewCell's Functions
+    //MARK: - UICollectionViewCell's Functions
     override func prepareForReuse() {
         imageView.image = nil
     }

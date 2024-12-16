@@ -17,11 +17,11 @@ final class FavoriteViewController: UIViewController {
         tableView.backgroundColor = GlobalConstants.Color.background
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
-        tableView.rowHeight = 100
+        tableView.rowHeight = LocalConstants.rowHeight
         
         //FIXME: Change Idenntifier
-        tableView.register(UITableViewCell.self,
-                           forCellReuseIdentifier: "Identifier")
+        tableView.register(FavoriteTableViewCell.self,
+                           forCellReuseIdentifier: FavoriteTableViewCell.reuseIdentifier)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -50,16 +50,10 @@ extension FavoriteViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Identifier",
+        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.reuseIdentifier,
                                                  for: indexPath)
         
-        cell.backgroundColor = .cyan
-        
-        var config = cell.defaultContentConfiguration()
-        config.text = "Primary Text"
-        config.secondaryText = "Secondary text"
-        config.image = UIImage(systemName: "bell")
-        cell.contentConfiguration = config
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -107,5 +101,6 @@ extension FavoriteViewController {
 extension FavoriteViewController {
     private enum LocalConstants {
         static let title = "Favorite Pictures"
+        static let rowHeight: CGFloat = 100
     }
 }
