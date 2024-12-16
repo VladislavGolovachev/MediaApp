@@ -12,8 +12,8 @@ enum GlobalConstants {
         static let background: UIColor = .white
     }
     enum Font {
-        static let title: UIFont    = .systemFont(ofSize: 24,
-                                               weight: .bold)
+        static let title: UIFont    = .systemFont(ofSize: 18,
+                                                  weight: .semibold)
         //FIXME: Change the common text's font
         static let common: UIFont   = .systemFont(ofSize: 14)
     }

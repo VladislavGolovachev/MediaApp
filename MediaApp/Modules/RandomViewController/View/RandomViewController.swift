@@ -10,13 +10,26 @@ import UIKit
 final class RandomViewController: UIViewController {
     //MARK: - Variables
     var presenter: RandomViewPresenterProtocol?
+    
+    var cellSize: CGSize = .zero
+    
     lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = LocalConstants.spacing
+        layout.minimumLineSpacing = LocalConstants.spacing
         
-        collectionView.dataSource = self
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: layout)
+        collectionView.backgroundColor = GlobalConstants.Color.background
+        collectionView.showsHorizontalScrollIndicator = false
+        
         //FIXME: Identifier
         collectionView.register(UICollectionViewCell.self,
                                 forCellWithReuseIdentifier: "Identifier")
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
         return collectionView
     }()
@@ -32,6 +45,14 @@ final class RandomViewController: UIViewController {
         ]
         
         addSubviews()
+        setupConstraints()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let spaceWidth = CGFloat(LocalConstants.itemsPerRow - 1) * LocalConstants.spacing + LocalConstants.padding * 2.0
+        let width = Int((view.bounds.width - spaceWidth) / CGFloat(LocalConstants.itemsPerRow))
+        
+        cellSize = CGSize(width: width, height: width)
     }
 }
 
@@ -39,12 +60,26 @@ final class RandomViewController: UIViewController {
 extension RandomViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        0
+        20
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Identifier",
+                                                      for: indexPath)
+        
+        cell.backgroundColor = .red
+        
+        return cell
+    }
+}
+
+//MARK: UICollectionViewDelegateFlowLayout
+extension RandomViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return cellSize
     }
 }
 
@@ -56,13 +91,20 @@ extension RandomViewController: RandomViewProtocol {
 //MARK: - Private Functions
 extension RandomViewController {
     private func addSubviews() {
-//        view.addSubview(collectionView)
+        view.addSubview(collectionView)
     }
     
     private func setupConstraints() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
+        let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor,
+                                                    constant: LocalConstants.padding),
+            collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor,
+                                                     constant: -LocalConstants.padding)
         ])
     }
 }
@@ -71,5 +113,8 @@ extension RandomViewController {
 extension RandomViewController {
     private enum LocalConstants {
         static let title = "Collection Pictures"
+        static let spacing: CGFloat = 4
+        static let padding: CGFloat = 4
+        static let itemsPerRow      = 3
     }
 }
