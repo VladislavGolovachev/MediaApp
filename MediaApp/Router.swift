@@ -57,13 +57,13 @@ extension Router {
         let favNavVC = UINavigationController(rootViewController: favVC)
         
         let tabController = UITabBarController(tabs: [
-            UITab(title: String(),
+            UITab(title: "Pictures",
                   image: UIImage(systemName: "photo"),
                   identifier: String(),
                   viewControllerProvider: { _ in
                       randomNavVC
                   }),
-            UITab(title: String(),
+            UITab(title: "Favorites",
                   image: UIImage(systemName: "heart"),
                   identifier: String(),
                   viewControllerProvider: { _ in

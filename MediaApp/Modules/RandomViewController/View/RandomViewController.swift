@@ -24,9 +24,8 @@ final class RandomViewController: UIViewController {
         collectionView.backgroundColor = GlobalConstants.Color.background
         collectionView.showsHorizontalScrollIndicator = false
         
-        //FIXME: Identifier
-        collectionView.register(UICollectionViewCell.self,
-                                forCellWithReuseIdentifier: "Identifier")
+        collectionView.register(RandomCollectionViewCell.self,
+                                forCellWithReuseIdentifier: RandomCollectionViewCell.identifier)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -37,12 +36,9 @@ final class RandomViewController: UIViewController {
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = GlobalConstants.Color.background
         
-        navigationItem.title = LocalConstants.title
-        navigationController?.navigationBar.titleTextAttributes = [
-            .font: GlobalConstants.Font.title
-        ]
+        view.backgroundColor = GlobalConstants.Color.background
+        customizeBars()
         
         addSubviews()
         setupConstraints()
@@ -50,9 +46,9 @@ final class RandomViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         let spaceWidth = CGFloat(LocalConstants.itemsPerRow - 1) * LocalConstants.spacing + LocalConstants.padding * 2.0
-        let width = Int((view.bounds.width - spaceWidth) / CGFloat(LocalConstants.itemsPerRow))
+        let cellWidth = Int((view.bounds.width - spaceWidth) / CGFloat(LocalConstants.itemsPerRow))
         
-        cellSize = CGSize(width: width, height: width)
+        cellSize = CGSize(width: cellWidth, height: cellWidth)
     }
 }
 
@@ -65,10 +61,14 @@ extension RandomViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Identifier",
+        let identifier = RandomCollectionViewCell.identifier
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,
                                                       for: indexPath)
+        as? RandomCollectionViewCell ?? RandomCollectionViewCell()
         
-        cell.backgroundColor = .red
+        cell.backgroundColor = GlobalConstants.Color.background
+        cell.setImage(UIImage(systemName: "bell")!)
+        
         
         return cell
     }
@@ -107,14 +107,27 @@ extension RandomViewController {
                                                      constant: -LocalConstants.padding)
         ])
     }
+    
+    private func customizeBars() {
+        tabBarController?.tabBar.barTintColor = GlobalConstants.Color.background
+        
+        navigationController?.navigationBar.barTintColor = GlobalConstants.Color.background
+        navigationController?.navigationBar.backgroundColor = GlobalConstants.Color.background
+        
+        navigationItem.title = LocalConstants.title
+        navigationController?.navigationBar.titleTextAttributes = [
+            .font: GlobalConstants.Font.title,
+            .foregroundColor: GlobalConstants.Color.title
+        ]
+    }
 }
 
 //MARK: - Local constants
 extension RandomViewController {
     private enum LocalConstants {
-        static let title = "Collection Pictures"
-        static let spacing: CGFloat = 4
-        static let padding: CGFloat = 4
+        static let title            = "Collection Pictures"
         static let itemsPerRow      = 3
+        static let spacing: CGFloat = 2
+        static let padding: CGFloat = 4
     }
 }

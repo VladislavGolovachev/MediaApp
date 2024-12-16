@@ -9,7 +9,8 @@ import UIKit
 
 enum GlobalConstants {
     enum Color {
-        static let background: UIColor = .white
+        static let background: UIColor  = .white
+        static let title: UIColor       = .black
     }
     enum Font {
         static let title: UIFont    = .systemFont(ofSize: 18,
