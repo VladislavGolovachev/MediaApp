@@ -29,9 +29,6 @@ final class FavoriteTableViewCell: UITableViewCell {
     }()
     private let authorNameLabel: UILabel = {
         let label = UILabel()
-        
-        //FIXME: Remove the text!!!
-        label.text = "Example"
         label.font = LocalConstants.font
         
         return label
@@ -55,6 +52,17 @@ final class FavoriteTableViewCell: UITableViewCell {
         
         pictureImageView.image = nil
         authorNameLabel.text = String()
+    }
+}
+
+//MARK: - Public Functions
+extension FavoriteTableViewCell {
+    func setImage(_ image: UIImage) {
+        pictureImageView.image = image
+    }
+    
+    func setAuthor(_ text: String) {
+        authorNameLabel.text = text
     }
 }
 

@@ -19,7 +19,6 @@ final class FavoriteViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.rowHeight = LocalConstants.rowHeight
         
-        //FIXME: Change Idenntifier
         tableView.register(FavoriteTableViewCell.self,
                            forCellReuseIdentifier: FavoriteTableViewCell.reuseIdentifier)
         

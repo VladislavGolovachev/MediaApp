@@ -17,7 +17,7 @@ final class RandomCollectionViewCell: UICollectionViewCell {
         imageView.backgroundColor = GlobalConstants.Color.background
         imageView.layer.cornerRadius = LocalConstants.cornerRadius
         
-        imageView.contentMode = LocalConstants.contentMode
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         
         return imageView
@@ -65,7 +65,6 @@ extension RandomCollectionViewCell {
 //MARK: Local Constants
 extension RandomCollectionViewCell {
     private enum LocalConstants {
-        static let contentMode: UIImageView.ContentMode = .scaleAspectFill
         static let cornerRadius: CGFloat = 4
     }
 }
