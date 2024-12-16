@@ -21,11 +21,13 @@ final class RandomViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
+        
         collectionView.backgroundColor = GlobalConstants.Color.background
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         
         collectionView.register(RandomCollectionViewCell.self,
-                                forCellWithReuseIdentifier: RandomCollectionViewCell.identifier)
+                                forCellWithReuseIdentifier: RandomCollectionViewCell.reuseIdentifier)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -40,7 +42,7 @@ final class RandomViewController: UIViewController {
         view.backgroundColor = GlobalConstants.Color.background
         customizeBars()
         
-        addSubviews()
+        view.addSubview(collectionView)
         setupConstraints()
     }
     
@@ -56,12 +58,12 @@ final class RandomViewController: UIViewController {
 extension RandomViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        20
+        return 20
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let identifier = RandomCollectionViewCell.identifier
+        let identifier = RandomCollectionViewCell.reuseIdentifier
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,
                                                       for: indexPath)
         as? RandomCollectionViewCell ?? RandomCollectionViewCell()
@@ -90,10 +92,6 @@ extension RandomViewController: RandomViewProtocol {
 
 //MARK: - Private Functions
 extension RandomViewController {
-    private func addSubviews() {
-        view.addSubview(collectionView)
-    }
-    
     private func setupConstraints() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         

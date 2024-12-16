@@ -9,7 +9,7 @@ import UIKit
 
 final class RandomCollectionViewCell: UICollectionViewCell {
     //MARK: - Variables
-    static let identifier = "RandomPictureIdentifier"
+    static let reuseIdentifier = "RandomPictureIdentifier"
     
     private let imageView = UIImageView()
     
