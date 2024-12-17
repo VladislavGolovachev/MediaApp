@@ -5,8 +5,8 @@
 //  Created by Владислав Головачев on 17.12.2024.
 //
 
+import UIKit
 import Kingfisher
-import Foundation
 
 protocol ImageLoadingProtocol {
     func downloadData(by urlString: String,
