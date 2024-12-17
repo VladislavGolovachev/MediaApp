@@ -8,26 +8,84 @@
 import Foundation
 import CoreData
 
-protocol DataManagerProtocol: CoreDataStorageManager {
-    
-}
-
 //MARK: CoreDataStorageManager
-final class DataManager: DataManagerProtocol {
+final class DataManager: CoreDataStorageManager {
     typealias KeyType = Date
     typealias ObjectType = PhotoEntity
     
     private let storage: CoreDataStorage = Storage()
         
-    func fetch(amongObjectsWithKeyedValues: [String : Any]?) throws -> [PhotoEntity] {
-        return [PhotoEntity]()
+    func fetch(amongObjectsWithKeyedValues keyedValues: [String : Any]?) throws -> [PhotoEntity] {
+        var photos: [PhotoEntity]?
+        try storage.backgroundContext.performAndWait { [weak self] in
+            guard let strongSelf = self else {
+                throw StorageError.unknown
+            }
+            if let error = strongSelf.storage.loadingError {
+                throw error
+            }
+            
+            let request = PhotoEntity.fetchRequest()
+            let sortDescriptor = NSSortDescriptor(key: PhotoKeys.keyDate.rawValue,
+                                                   ascending: true)
+            request.sortDescriptors = [sortDescriptor]
+            
+            let key = PhotoKeys.keyDate.rawValue
+            if let date = keyedValues?[key] as? NSDate {
+                let predicate = NSPredicate(format: "\(key) == %@", date)
+                request.predicate = predicate
+            }
+            
+            do {
+                photos = try strongSelf.storage.backgroundContext.fetch(request)
+            } catch {
+                throw StorageError.fetchingFailed
+            }
+        }
+        
+        if let photos {
+            return photos
+        }
+        throw StorageError.missingObject
     }
     
     func persist(with keyedValues: [String : Any]) throws {
-        
+        try storage.backgroundContext.performAndWait { [weak self] in
+            if let error = self?.storage.loadingError {
+                throw error
+            }
+            guard let context = self?.storage.backgroundContext,
+                  let entity = NSEntityDescription.entity(forEntityName: "PhotoEntity",
+                                                          in: context) else {return}
+            
+            let object = NSManagedObject(entity: entity, insertInto: context)
+            object.setValuesForKeys(keyedValues)
+            
+            try self?.saveContext()
+        }
     }
     
-    func delete(for: Date, amongObjectsWithKeyedValues: [String : Any]?) throws {
-        
+    func delete(for date: Date, amongObjectsWithKeyedValues keyedValues: [String : Any]?) throws {
+        try storage.backgroundContext.performAndWait { [weak self] in
+            guard let strongSelf = self else {
+                throw StorageError.unknown
+            }
+            let photos = try strongSelf.fetch(amongObjectsWithKeyedValues: keyedValues)
+            
+            strongSelf.storage.backgroundContext.delete(photos[0])
+            try strongSelf.saveContext()
+        }
+    }
+}
+
+extension DataManager {
+    private func saveContext() throws {
+        try storage.backgroundContext.performAndWait { [weak self] in
+            do {
+                try self?.storage.backgroundContext.save()
+            } catch {
+                throw StorageError.unableToSaveData
+            }
+        }
     }
 }
