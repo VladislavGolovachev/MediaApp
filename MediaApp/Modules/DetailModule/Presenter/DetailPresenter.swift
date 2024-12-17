@@ -7,14 +7,17 @@
 
 import Foundation
 
+//MARK: DetailViewProtocol
 protocol DetailViewProtocol: AnyObject {
     
 }
 
+//MARK: - DetailViewPresenterProtocol
 protocol DetailViewPresenterProtocol: AnyObject {
     init(view: DetailViewProtocol, router: RouterProtocol)
 }
 
+//MARK: - DetailPresenter
 final class DetailPresenter: DetailViewPresenterProtocol {
     weak var view: DetailViewProtocol?
     var router: RouterProtocol

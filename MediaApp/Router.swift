@@ -7,12 +7,14 @@
 
 import UIKit
 
+//MARK: RouterProtocol
 protocol RouterProtocol: AnyObject {
     func initiateRootViewController() -> UIViewController
     func next()
     func pop()
 }
 
+//MARK: - Router
 final class Router: RouterProtocol {
     var rootViewController: UITabBarController?
     var assembly: AssemblyProtocol
@@ -45,7 +47,7 @@ final class Router: RouterProtocol {
     }
 }
 
-//MARK: Private Functions
+//MARK: - Private Functions
 extension Router {
     private func createTabBarController() -> UITabBarController {
         let randomVC = assembly.createRandomModule(router: self)
@@ -55,20 +57,19 @@ extension Router {
         let favNavVC = UINavigationController(rootViewController: favVC)
         
         let tabController = UITabBarController(tabs: [
-            UITab(title: String(),
+            UITab(title: "Pictures",
                   image: UIImage(systemName: "photo"),
                   identifier: String(),
                   viewControllerProvider: { _ in
                       randomNavVC
                   }),
-            UITab(title: String(),
+            UITab(title: "Favorites",
                   image: UIImage(systemName: "heart"),
                   identifier: String(),
                   viewControllerProvider: { _ in
                       favNavVC
                   }),
         ])
-        tabController.tabBar.backgroundColor = .white
         
         return tabController
     }
