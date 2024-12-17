@@ -35,8 +35,6 @@ final class DetailViewController: UIViewController {
         let imageView = UIImageView()
         
         imageView.backgroundColor = GlobalConstants.Color.background
-        imageView.contentMode = .redraw
-        imageView.clipsToBounds = false
         
         return imageView
     }()
@@ -55,17 +53,9 @@ final class DetailViewController: UIViewController {
         return label
     }()
     
-    private let locationLabel: UILabel = {
+    private let locationDateLabel: UILabel = {
         let label = UILabel()
         label.font = LocalConstants.Font.location
-        label.textColor = GlobalConstants.Color.secondaryText
-        
-        return label
-    }()
-    
-    private let dateLabel: UILabel = {
-        let label = UILabel()
-        label.font = LocalConstants.Font.date
         label.textColor = GlobalConstants.Color.secondaryText
         
         return label
@@ -135,8 +125,7 @@ extension DetailViewController {
     private func addSubviews() {
         stackView.addArrangedSubview(authorLabel)
         stackView.addArrangedSubview(downloadsAmountLabel)
-        stackView.addArrangedSubview(locationLabel)
-        stackView.addArrangedSubview(dateLabel)
+        stackView.addArrangedSubview(locationDateLabel)
         
         scrollView.addSubview(imageView)
         scrollView.addSubview(stackView)
