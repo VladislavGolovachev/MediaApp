@@ -25,6 +25,9 @@
 		826B19932D107B570056D4F9 /* RandomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19922D107B570056D4F9 /* RandomCollectionViewCell.swift */; };
 		826B19952D1094C80056D4F9 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19942D1094C80056D4F9 /* FavoriteTableViewCell.swift */; };
 		826B19972D1164AC0056D4F9 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19962D1164A40056D4F9 /* ImageExtension.swift */; };
+		826B199B2D116AF80056D4F9 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B199A2D116AF80056D4F9 /* NetworkRouter.swift */; };
+		826B199D2D116B180056D4F9 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B199C2D116B180056D4F9 /* EndPointType.swift */; };
+		826B19A02D116B750056D4F9 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B199F2D116B750056D4F9 /* NetworkError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,9 @@
 		826B19922D107B570056D4F9 /* RandomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCollectionViewCell.swift; sourceTree = "<group>"; };
 		826B19942D1094C80056D4F9 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		826B19962D1164A40056D4F9 /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		826B199A2D116AF80056D4F9 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
+		826B199C2D116B180056D4F9 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
+		826B199F2D116B750056D4F9 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		F4D331A6FC25F5A447E845A2 /* Pods_MediaApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -98,8 +104,10 @@
 				826B19642D103AA10056D4F9 /* SceneDelegate.swift */,
 				826B19862D1054C80056D4F9 /* Router.swift */,
 				826B19882D1055940056D4F9 /* Assembly.swift */,
+				826B19992D116AB00056D4F9 /* NetwokLayer */,
 				826B19702D104F5E0056D4F9 /* Modules */,
 				826B19982D1164AF0056D4F9 /* Extensions */,
+				826B199E2D116B5E0056D4F9 /* Errors */,
 				826B198E2D10730D0056D4F9 /* GlobalConstants.swift */,
 				826B195E2D103AA10056D4F9 /* Assets.xcassets */,
 				826B195F2D103AA10056D4F9 /* Info.plist */,
@@ -227,6 +235,23 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		826B19992D116AB00056D4F9 /* NetwokLayer */ = {
+			isa = PBXGroup;
+			children = (
+				826B199A2D116AF80056D4F9 /* NetworkRouter.swift */,
+				826B199C2D116B180056D4F9 /* EndPointType.swift */,
+			);
+			path = NetwokLayer;
+			sourceTree = "<group>";
+		};
+		826B199E2D116B5E0056D4F9 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				826B199F2D116B750056D4F9 /* NetworkError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		DDE5F1D6229E8CE646686BF3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,8 +377,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				826B19A02D116B750056D4F9 /* NetworkError.swift in Sources */,
+				826B199D2D116B180056D4F9 /* EndPointType.swift in Sources */,
 				826B19672D103AA10056D4F9 /* AppDelegate.swift in Sources */,
 				826B19892D1055940056D4F9 /* Assembly.swift in Sources */,
+				826B199B2D116AF80056D4F9 /* NetworkRouter.swift in Sources */,
 				826B19682D103AA10056D4F9 /* SceneDelegate.swift in Sources */,
 				826B19972D1164AC0056D4F9 /* ImageExtension.swift in Sources */,
 				826B198D2D105BC60056D4F9 /* DetailPresenter.swift in Sources */,
