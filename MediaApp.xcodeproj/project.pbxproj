@@ -243,8 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				826B199A2D116AF80056D4F9 /* NetworkRouter.swift */,
-				826B19A12D11802F0056D4F9 /* UnsplashAPIEndPoint.swift */,
-				826B19A32D1180480056D4F9 /* SearchResponse.swift */,
+				826B19A72D118ADB0056D4F9 /* UnsplashAPI */,
 				826B199C2D116B180056D4F9 /* EndPointType.swift */,
 			);
 			path = NetwokLayer;
@@ -256,6 +255,23 @@
 				826B199F2D116B750056D4F9 /* NetworkError.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		826B19A72D118ADB0056D4F9 /* UnsplashAPI */ = {
+			isa = PBXGroup;
+			children = (
+				826B19A12D11802F0056D4F9 /* UnsplashAPIEndPoint.swift */,
+				826B19A82D118AEE0056D4F9 /* Responses */,
+			);
+			path = UnsplashAPI;
+			sourceTree = "<group>";
+		};
+		826B19A82D118AEE0056D4F9 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				826B19A32D1180480056D4F9 /* SearchResponse.swift */,
+			);
+			path = Responses;
 			sourceTree = "<group>";
 		};
 		DDE5F1D6229E8CE646686BF3 /* Pods */ = {
