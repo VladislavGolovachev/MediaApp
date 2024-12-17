@@ -12,7 +12,7 @@ protocol NetworkRouterProtocol {
     func request(_ route: EndPoint, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
 }
 
-final class NetworkRouter<EndPoint: EndPointType>: NetworkRouterProtocol {
+struct NetworkRouter<EndPoint: EndPointType>: NetworkRouterProtocol {
     func request(_ route: EndPoint, completion: @escaping (Data?, URLResponse?, Error?) -> Void)  {
         do {
             let urlRequest = try buildRequest(from: route)
