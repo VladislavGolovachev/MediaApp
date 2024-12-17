@@ -9,11 +9,11 @@ import Foundation
 
 protocol NetworkManagerProtocol {
     func getPhotos(count: Int,
-                   completion: @escaping (Result<[RandomResponse], NetworkError>) -> Void)
+                   completion: @escaping (Result<[BasicPhotoResponse], NetworkError>) -> Void)
     func getPhotoInfo(id: String,
                       completion: @escaping (Result<PhotoResponse, NetworkError>) -> Void)
     func searchPhotos(keyword: String,
-                      completion: @escaping (Result<[SearchPhoto], NetworkError>) -> Void)
+                      completion: @escaping (Result<[BasicPhotoResponse], NetworkError>) -> Void)
 }
 
 //MARK: NetworkManagerProtocol
@@ -21,7 +21,7 @@ struct NetworkManager: NetworkManagerProtocol {
     private let router = NetworkRouter<UnsplashAPIEndPoint>()
     
     func getPhotos(count: Int,
-                   completion: @escaping (Result<[RandomResponse], NetworkError>) -> Void) {
+                   completion: @escaping (Result<[BasicPhotoResponse], NetworkError>) -> Void) {
         router.request(.randomPhotos(count: count)) { data, response, error in
             if error != nil {
                 completion(.failure(.networkConnection))
@@ -37,7 +37,8 @@ struct NetworkManager: NetworkManagerProtocol {
             }
             
             do {
-                let randomPhotos = try JSONDecoder().decode([RandomResponse].self, from: data)
+                let randomPhotos = try JSONDecoder().decode([BasicPhotoResponse].self,
+                                                            from: data)
                 completion(.success(randomPhotos))
             } catch {
                 completion(.failure(.unableToDecode))
@@ -71,7 +72,7 @@ struct NetworkManager: NetworkManagerProtocol {
     }
     
     func searchPhotos(keyword: String,
-                      completion: @escaping (Result<[SearchPhoto], NetworkError>) -> Void) {
+                      completion: @escaping (Result<[BasicPhotoResponse], NetworkError>) -> Void) {
         router.request(.search(keyword: keyword)) { data, response, error in
             if error != nil {
                 completion(.failure(.networkConnection))
@@ -87,7 +88,8 @@ struct NetworkManager: NetworkManagerProtocol {
             }
             
             do {
-                let apiResponse = try JSONDecoder().decode(SearchResponse.self, from: data)
+                let apiResponse = try JSONDecoder().decode(SearchResponse.self,
+                                                           from: data)
                 completion(.success(apiResponse.results))
             } catch {
                 completion(.failure(.unableToDecode))

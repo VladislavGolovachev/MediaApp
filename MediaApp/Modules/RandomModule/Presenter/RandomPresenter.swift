@@ -109,7 +109,7 @@ final class RandomPresenter: RandomViewPresenterProtocol {
 
 //MARK: - Private Functions
 extension RandomPresenter {
-    private func formattedResponse(_ response: [RandomResponse]) -> [PhotoModel] {
+    private func formattedResponse(_ response: [BasicPhotoResponse]) -> [PhotoModel] {
         var photos = [PhotoModel]()
         
         for item in response {
