@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 //MARK: RandomViewProtocol
 protocol RandomViewProtocol: AnyObject {
@@ -53,6 +54,10 @@ final class RandomPresenter: RandomViewPresenterProtocol {
     }
     
     func fetchImages(isNewList: Bool) {
+        if isNewList {
+            resetKingfisher()
+        }
+        
         networkManager.getPhotos(count: 20) { [weak self] result in
             switch result {
             case .success(let response):
@@ -114,5 +119,13 @@ extension RandomPresenter {
         }
         
         return photos
+    }
+    
+    private func resetKingfisher() {
+        KingfisherManager.shared.downloader.cancelAll()
+        
+        KingfisherManager.shared.cache.clearMemoryCache()
+        KingfisherManager.shared.cache.clearDiskCache()
+        KingfisherManager.shared.cache.cleanExpiredDiskCache()
     }
 }

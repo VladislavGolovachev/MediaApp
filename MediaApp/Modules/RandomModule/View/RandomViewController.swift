@@ -14,6 +14,15 @@ final class RandomViewController: UIViewController {
     private var cellSize: CGSize = .zero
     private var elementsCount = 0
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self,
+                          action: #selector(refreshAction(_:)),
+                          for: .valueChanged)
+        
+        return refresh
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -27,11 +36,7 @@ final class RandomViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         
-        let refresh = UIRefreshControl()
-        refresh.addTarget(self,
-                          action: #selector(refreshAction(_:)),
-                          for: .valueChanged)
-        collectionView.refreshControl = refresh
+        collectionView.refreshControl = refreshControl
         
         collectionView.register(RandomCollectionViewCell.self,
                                 forCellWithReuseIdentifier: RandomCollectionViewCell.reuseIdentifier)
@@ -72,7 +77,8 @@ final class RandomViewController: UIViewController {
 //MARK: - Actions
 extension RandomViewController {
     @objc func refreshAction(_ sender: UIRefreshControl) {
-        sender.endRefreshing()
+        elementsCount = 0
+        presenter?.fetchImages(isNewList: true)
     }
 }
 
@@ -133,6 +139,8 @@ extension RandomViewController: UISearchBarDelegate {
 //MARK: - RandomViewProtocol
 extension RandomViewController: RandomViewProtocol {
     func updateCollection(count: Int) {
+        refreshControl.endRefreshing()
+        
         elementsCount = count
         collectionView.reloadData()
     }
@@ -146,7 +154,10 @@ extension RandomViewController: RandomViewProtocol {
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Close", style: .default))
+        let action = UIAlertAction(title: "Close", style: .default) { [weak self] _ in
+            self?.refreshControl.endRefreshing()
+        }
+        alert.addAction(action)
         
         present(alert, animated: true)
     }
