@@ -26,6 +26,12 @@ final class RandomViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self,
+                          action: #selector(refreshAction(_:)),
+                          for: .valueChanged)
+        collectionView.refreshControl = refresh
+        
         collectionView.register(RandomCollectionViewCell.self,
                                 forCellWithReuseIdentifier: RandomCollectionViewCell.reuseIdentifier)
         
@@ -59,6 +65,13 @@ final class RandomViewController: UIViewController {
     }
 }
 
+//MARK: - Actions
+extension RandomViewController {
+    @objc func refreshAction(_ sender: UIRefreshControl) {
+        sender.endRefreshing()
+    }
+}
+
 //MARK: - UICollectionViewDataSource
 extension RandomViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
@@ -79,8 +92,8 @@ extension RandomViewController: UICollectionViewDataSource {
     }
 }
 
-//MARK: - UICOllectionViewDelegate
-extension RandomViewController {
+//MARK: - UICollectionViewDelegate
+extension RandomViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter?.showDetailedInfo()
     }
@@ -92,6 +105,13 @@ extension RandomViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return cellSize
+    }
+}
+
+//MARK: - UISearchBarDelegate
+extension RandomViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
     }
 }
 
@@ -128,6 +148,12 @@ extension RandomViewController {
             .font: GlobalConstants.Font.title,
             .foregroundColor: GlobalConstants.Color.title
         ]
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.delegate = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        
+        navigationItem.searchController = searchController
     }
 }
 
