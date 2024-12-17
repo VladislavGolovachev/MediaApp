@@ -12,6 +12,7 @@ final class DetailViewController: UIViewController {
     var presenter: DetailViewPresenterProtocol?
     
     private let scrollView = UIScrollView()
+    
     private let stackView = {
         let stackView = UIStackView()
         
@@ -66,7 +67,6 @@ final class DetailViewController: UIViewController {
     
     private var isFavorite = false
     
-    
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,15 +80,6 @@ final class DetailViewController: UIViewController {
                                      action: #selector(addToFavsAction(_:)))
         navigationItem.rightBarButtonItem = button
         
-        
-//        imageView.image = UIImage(named: "als")
-//        imageView.image = UIImage(named: "test2")
-        imageView.image = UIImage(named: "test3")
-        authorLabel.text = "Author: ArthuaBill"
-        locationLabel.text = "Canada, Mexnico (12.02.2019)"
-//        dateLabel.text = "12.02.2019"
-        downloadsAmountLabel.text = "11230914 downloads"
-        
         addSubviews()
         setupConstraints()
     }
@@ -99,6 +90,10 @@ final class DetailViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if view.bounds.height >= stackView.bounds.size.height {
+            return
+        }
         
         let offsetY = scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom
         let bottomOffset = CGPoint(x: 0, y: offsetY)
