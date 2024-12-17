@@ -1,5 +1,5 @@
 //
-//  ImageExtension.swift
+//  UIImageExtension.swift
 //  MediaApp
 //
 //  Created by Владислав Головачев on 17.12.2024.

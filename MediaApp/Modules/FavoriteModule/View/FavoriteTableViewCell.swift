@@ -37,6 +37,8 @@ final class FavoriteTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        backgroundColor = GlobalConstants.Color.background
+        
         addSubviews()
         setupConstraints()
     }

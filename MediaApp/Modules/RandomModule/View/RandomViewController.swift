@@ -196,7 +196,7 @@ extension RandomViewController {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.barTintColor = GlobalConstants.Color.background
+        searchController.searchBar.overrideUserInterfaceStyle = .light
         
         navigationItem.searchController = searchController
     }
