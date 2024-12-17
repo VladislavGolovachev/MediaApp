@@ -12,22 +12,6 @@ struct SearchResponse: Decodable {
 }
 
 struct SearchPhoto: Decodable {
-    let creationDate: Date
-    let user: User
+    let id: String
     let urls: [URLPhoto]
-    
-    private enum CodingKeys: String, CodingKey {
-        case creationDate = "created_at"
-        case user = "user"
-        case urls = "urls"
-    }
-}
-
-struct URLPhoto: Decodable {
-    let regular: String
-}
-
-struct User: Decodable {
-    let name: String
-    let location: String?
 }

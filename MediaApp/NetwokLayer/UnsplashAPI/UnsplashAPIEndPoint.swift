@@ -8,6 +8,7 @@
 import Foundation
 
 enum UnsplashAPIEndPoint {
+    case photo(id: String)
     case randomPhotos(count: Int)
     case search(keyword: String)
 }
@@ -24,6 +25,9 @@ extension UnsplashAPIEndPoint: EndPointType {
     
     var path: String {
         switch self {
+        case .photo(let id):
+            return "photos/\(id)"
+            
         case .randomPhotos(_):
             return "photos/random"
             
@@ -47,6 +51,9 @@ extension UnsplashAPIEndPoint: EndPointType {
                                            value: String(42)))
             queryItems.append(URLQueryItem(name: "query",
                                            value: keyword))
+            
+        default:
+            return queryItems
         }
         
         return queryItems
