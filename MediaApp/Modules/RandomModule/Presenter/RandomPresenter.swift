@@ -23,7 +23,7 @@ protocol RandomViewPresenterProtocol: AnyObject {
          imageLoader: ImageLoadingProtocol,
          networkManager: NetworkManagerProtocol)
     
-    func showDetailedInfo()
+    func showDetailedInfo(for indexPath: IndexPath)
     func fetchImages(isNewList: Bool, keyword: String?)
     func downloadImage(for: IndexPath)
 }
@@ -51,8 +51,13 @@ final class RandomPresenter: RandomViewPresenterProtocol {
         self.networkManager = networkManager
     }
     
-    func showDetailedInfo() {
-        router.next()
+    func showDetailedInfo(for indexPath: IndexPath) {
+        if let photos {
+            router.next(isFavorite: false, id: photos[indexPath.row].id)
+        } else {
+            view?.showAlert(title: "An error caused",
+                            message: NetworkError.missingData.rawValue)
+        }
     }
     
     func fetchImages(isNewList: Bool, keyword: String?) {

@@ -10,7 +10,7 @@ import CoreData
 
 //MARK: CoreDataStorageManager
 final class DataManager: CoreDataStorageManager {
-    typealias KeyType = Date
+    typealias KeyType = String
     typealias ObjectType = PhotoEntity
     
     private let storage: CoreDataStorage = Storage()
@@ -67,7 +67,7 @@ final class DataManager: CoreDataStorageManager {
         }
     }
     
-    func delete(for date: Date, amongObjectsWithKeyedValues keyedValues: [String : Any]?) throws {
+    func delete(amongObjectsWithKeyedValues keyedValues: [String : Any]?) throws {
         try storage.backgroundContext.performAndWait { [weak self] in
             guard let strongSelf = self else {
                 throw StorageError.unknown

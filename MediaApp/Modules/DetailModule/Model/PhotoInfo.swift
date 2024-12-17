@@ -2,17 +2,30 @@
 //  PhotoInfo.swift
 //  MediaApp
 //
-//  Created by Владислав Головачев on 17.12.2024.
+//  Created by Владислав Головачев on 18.12.2024.
 //
 
-import Foundation
+import UIKit
 
 struct PhotoInfo {
-    let user: String
-    let downloads: Int
-    let location: String
-    let creationDate: String
-    let imageData: Data
+    let image: UIImage
+    let author: String
+    let downloads: String
+    private let location: String
+    private let date: String
+    var locationDate: String {
+        return location + " (\(date))"
+    }
     
-    let keyDate: Date?
+    init(image: UIImage,
+         author: String?,
+         downloads: Int,
+         location: String?,
+         date: String?) {
+        self.image = image
+        self.author = "Author: " + (author ?? "Author not stated")
+        self.downloads = "Downloads: " + String(downloads)
+        self.location = location ?? "Location not stated"
+        self.date = date ?? "date not stated"
+    }
 }

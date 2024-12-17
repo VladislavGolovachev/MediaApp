@@ -19,7 +19,7 @@ extension PhotoEntity {
     @NSManaged public var imageData: Data?
     @NSManaged public var id: String?
     @NSManaged public var location: String?
-
+    @NSManaged public var downloads: Int32
 }
 
 extension PhotoEntity : Identifiable {

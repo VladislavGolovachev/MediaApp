@@ -27,6 +27,7 @@ final class DetailViewController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.spacing = LocalConstants.spacing
+        stackView.alpha = 0
         
         return stackView
     }()
@@ -35,6 +36,7 @@ final class DetailViewController: UIViewController {
         let imageView = UIImageView()
         
         imageView.backgroundColor = GlobalConstants.Color.background
+        imageView.alpha = 0
         
         return imageView
     }()
@@ -61,11 +63,23 @@ final class DetailViewController: UIViewController {
         return label
     }()
     
+    private let activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .darkGray
+        
+        return activityIndicator
+    }()
+    
     private var isFavorite = false
     
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityIndicatorView.startAnimating()
+        
+        presenter?.updateScreen()
         
         view.backgroundColor = GlobalConstants.Color.background
         tabBarController?.tabBar.isHidden = true
@@ -117,7 +131,34 @@ extension DetailViewController {
 
 //MARK: - DetailViewProtocol
 extension DetailViewController: DetailViewProtocol {
+    func updateScreen(with photoInfo: PhotoInfo) {
+        activityIndicatorView.stopAnimating()
+        
+        imageView.image = photoInfo.image
+        authorLabel.text = photoInfo.author
+        downloadsAmountLabel.text = photoInfo.downloads
+        locationDateLabel.text = photoInfo.locationDate
+        
+        UIView.animate(withDuration: 0.8) {
+            self.imageView.alpha = 1
+        } completion: { _ in
+            UIView.animate(withDuration: 0.4) {
+                self.stackView.alpha = 1
+            }
+        }
+    }
     
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "Close", style: .default) { [weak self] _ in
+            self?.presenter?.showPreviousScreen()
+        }
+        alert.addAction(action)
+        
+        present(alert, animated: true)
+    }
 }
 
 //MARK: Private Functions
@@ -129,16 +170,22 @@ extension DetailViewController {
         
         scrollView.addSubview(imageView)
         scrollView.addSubview(stackView)
+        
         view.addSubview(scrollView)
+        view.addSubview(activityIndicatorView)
     }
     
     private func setupConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
             scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
