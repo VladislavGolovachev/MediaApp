@@ -25,6 +25,16 @@
 		826B19932D107B570056D4F9 /* RandomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19922D107B570056D4F9 /* RandomCollectionViewCell.swift */; };
 		826B19952D1094C80056D4F9 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19942D1094C80056D4F9 /* FavoriteTableViewCell.swift */; };
 		826B19972D1164AC0056D4F9 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19962D1164A40056D4F9 /* ImageExtension.swift */; };
+		826B199B2D116AF80056D4F9 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B199A2D116AF80056D4F9 /* NetworkRouter.swift */; };
+		826B199D2D116B180056D4F9 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B199C2D116B180056D4F9 /* EndPointType.swift */; };
+		826B19A02D116B750056D4F9 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B199F2D116B750056D4F9 /* NetworkError.swift */; };
+		826B19A22D11802F0056D4F9 /* UnsplashAPIEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19A12D11802F0056D4F9 /* UnsplashAPIEndPoint.swift */; };
+		826B19A42D1180480056D4F9 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19A32D1180480056D4F9 /* SearchResponse.swift */; };
+		826B19AB2D118F2C0056D4F9 /* PhotoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19AA2D118F2C0056D4F9 /* PhotoResponse.swift */; };
+		826B19AD2D118FCB0056D4F9 /* AdditionalStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19AC2D118FBA0056D4F9 /* AdditionalStructs.swift */; };
+		826B19AF2D11916B0056D4F9 /* RandomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19AE2D11915C0056D4F9 /* RandomResponse.swift */; };
+		826B19B12D1193CA0056D4F9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19B02D1193CA0056D4F9 /* NetworkManager.swift */; };
+		826B19B52D1197AF0056D4F9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19B42D1197AF0056D4F9 /* ImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +59,16 @@
 		826B19922D107B570056D4F9 /* RandomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCollectionViewCell.swift; sourceTree = "<group>"; };
 		826B19942D1094C80056D4F9 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		826B19962D1164A40056D4F9 /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		826B199A2D116AF80056D4F9 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
+		826B199C2D116B180056D4F9 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
+		826B199F2D116B750056D4F9 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		826B19A12D11802F0056D4F9 /* UnsplashAPIEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPIEndPoint.swift; sourceTree = "<group>"; };
+		826B19A32D1180480056D4F9 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		826B19AA2D118F2C0056D4F9 /* PhotoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResponse.swift; sourceTree = "<group>"; };
+		826B19AC2D118FBA0056D4F9 /* AdditionalStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalStructs.swift; sourceTree = "<group>"; };
+		826B19AE2D11915C0056D4F9 /* RandomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomResponse.swift; sourceTree = "<group>"; };
+		826B19B02D1193CA0056D4F9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		826B19B42D1197AF0056D4F9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		F4D331A6FC25F5A447E845A2 /* Pods_MediaApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -98,8 +118,10 @@
 				826B19642D103AA10056D4F9 /* SceneDelegate.swift */,
 				826B19862D1054C80056D4F9 /* Router.swift */,
 				826B19882D1055940056D4F9 /* Assembly.swift */,
+				826B19992D116AB00056D4F9 /* NetwokLayer */,
 				826B19702D104F5E0056D4F9 /* Modules */,
 				826B19982D1164AF0056D4F9 /* Extensions */,
+				826B199E2D116B5E0056D4F9 /* Errors */,
 				826B198E2D10730D0056D4F9 /* GlobalConstants.swift */,
 				826B195E2D103AA10056D4F9 /* Assets.xcassets */,
 				826B195F2D103AA10056D4F9 /* Info.plist */,
@@ -112,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				826B19722D1051F80056D4F9 /* RandomModule */,
+				826B19A92D118B420056D4F9 /* Model */,
 				826B19732D10525A0056D4F9 /* FavoriteModule */,
 				826B19742D1052640056D4F9 /* DetailModule */,
 			);
@@ -123,7 +146,6 @@
 			children = (
 				826B197D2D1052F90056D4F9 /* View */,
 				826B197C2D1052EE0056D4F9 /* Presenter */,
-				826B197B2D1052E30056D4F9 /* Model */,
 			);
 			path = RandomModule;
 			sourceTree = "<group>";
@@ -146,13 +168,6 @@
 				826B19832D1053380056D4F9 /* Model */,
 			);
 			path = DetailModule;
-			sourceTree = "<group>";
-		};
-		826B197B2D1052E30056D4F9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		826B197C2D1052EE0056D4F9 /* Presenter */ = {
@@ -225,6 +240,53 @@
 				826B19962D1164A40056D4F9 /* ImageExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		826B19992D116AB00056D4F9 /* NetwokLayer */ = {
+			isa = PBXGroup;
+			children = (
+				826B19B02D1193CA0056D4F9 /* NetworkManager.swift */,
+				826B19B42D1197AF0056D4F9 /* ImageLoader.swift */,
+				826B199A2D116AF80056D4F9 /* NetworkRouter.swift */,
+				826B19A72D118ADB0056D4F9 /* UnsplashAPI */,
+				826B199C2D116B180056D4F9 /* EndPointType.swift */,
+			);
+			path = NetwokLayer;
+			sourceTree = "<group>";
+		};
+		826B199E2D116B5E0056D4F9 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				826B199F2D116B750056D4F9 /* NetworkError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		826B19A72D118ADB0056D4F9 /* UnsplashAPI */ = {
+			isa = PBXGroup;
+			children = (
+				826B19A12D11802F0056D4F9 /* UnsplashAPIEndPoint.swift */,
+				826B19A82D118AEE0056D4F9 /* Responses */,
+			);
+			path = UnsplashAPI;
+			sourceTree = "<group>";
+		};
+		826B19A82D118AEE0056D4F9 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				826B19A32D1180480056D4F9 /* SearchResponse.swift */,
+				826B19AE2D11915C0056D4F9 /* RandomResponse.swift */,
+				826B19AA2D118F2C0056D4F9 /* PhotoResponse.swift */,
+				826B19AC2D118FBA0056D4F9 /* AdditionalStructs.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		826B19A92D118B420056D4F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		DDE5F1D6229E8CE646686BF3 /* Pods */ = {
@@ -352,18 +414,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				826B19B12D1193CA0056D4F9 /* NetworkManager.swift in Sources */,
+				826B19A42D1180480056D4F9 /* SearchResponse.swift in Sources */,
+				826B19A02D116B750056D4F9 /* NetworkError.swift in Sources */,
+				826B199D2D116B180056D4F9 /* EndPointType.swift in Sources */,
+				826B19AB2D118F2C0056D4F9 /* PhotoResponse.swift in Sources */,
 				826B19672D103AA10056D4F9 /* AppDelegate.swift in Sources */,
+				826B19AD2D118FCB0056D4F9 /* AdditionalStructs.swift in Sources */,
 				826B19892D1055940056D4F9 /* Assembly.swift in Sources */,
+				826B199B2D116AF80056D4F9 /* NetworkRouter.swift in Sources */,
 				826B19682D103AA10056D4F9 /* SceneDelegate.swift in Sources */,
 				826B19972D1164AC0056D4F9 /* ImageExtension.swift in Sources */,
 				826B198D2D105BC60056D4F9 /* DetailPresenter.swift in Sources */,
+				826B19AF2D11916B0056D4F9 /* RandomResponse.swift in Sources */,
 				826B197A2D1052DD0056D4F9 /* DetailViewController.swift in Sources */,
+				826B19B52D1197AF0056D4F9 /* ImageLoader.swift in Sources */,
 				826B19932D107B570056D4F9 /* RandomCollectionViewCell.swift in Sources */,
 				826B198F2D10730D0056D4F9 /* GlobalConstants.swift in Sources */,
 				826B19952D1094C80056D4F9 /* FavoriteTableViewCell.swift in Sources */,
 				826B19872D1054CA0056D4F9 /* Router.swift in Sources */,
 				826B19782D1052D50056D4F9 /* FavoriteViewController.swift in Sources */,
 				826B198B2D105B960056D4F9 /* FavoritePresenter.swift in Sources */,
+				826B19A22D11802F0056D4F9 /* UnsplashAPIEndPoint.swift in Sources */,
 				826B19692D103AA10056D4F9 /* RandomViewController.swift in Sources */,
 				826B19852D10543A0056D4F9 /* RandomPresenter.swift in Sources */,
 			);

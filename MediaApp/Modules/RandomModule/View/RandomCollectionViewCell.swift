@@ -65,6 +65,6 @@ extension RandomCollectionViewCell {
 //MARK: Local Constants
 extension RandomCollectionViewCell {
     private enum LocalConstants {
-        static let cornerRadius: CGFloat = 4
+        static let cornerRadius: CGFloat = 7
     }
 }
