@@ -24,6 +24,7 @@
 		826B198F2D10730D0056D4F9 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B198E2D10730D0056D4F9 /* GlobalConstants.swift */; };
 		826B19932D107B570056D4F9 /* RandomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19922D107B570056D4F9 /* RandomCollectionViewCell.swift */; };
 		826B19952D1094C80056D4F9 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19942D1094C80056D4F9 /* FavoriteTableViewCell.swift */; };
+		826B19972D1164AC0056D4F9 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19962D1164A40056D4F9 /* ImageExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		826B198E2D10730D0056D4F9 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		826B19922D107B570056D4F9 /* RandomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCollectionViewCell.swift; sourceTree = "<group>"; };
 		826B19942D1094C80056D4F9 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
+		826B19962D1164A40056D4F9 /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
 		F4D331A6FC25F5A447E845A2 /* Pods_MediaApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 				826B19882D1055940056D4F9 /* Assembly.swift */,
 				826B19702D104F5E0056D4F9 /* Modules */,
 				826B195E2D103AA10056D4F9 /* Assets.xcassets */,
+				826B19982D1164AF0056D4F9 /* Extensions */,
 				826B198E2D10730D0056D4F9 /* GlobalConstants.swift */,
 				826B195F2D103AA10056D4F9 /* Info.plist */,
 				826B19612D103AA10056D4F9 /* LaunchScreen.storyboard */,
@@ -214,6 +217,14 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		826B19982D1164AF0056D4F9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				826B19962D1164A40056D4F9 /* ImageExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		DDE5F1D6229E8CE646686BF3 /* Pods */ = {
@@ -344,6 +355,7 @@
 				826B19672D103AA10056D4F9 /* AppDelegate.swift in Sources */,
 				826B19892D1055940056D4F9 /* Assembly.swift in Sources */,
 				826B19682D103AA10056D4F9 /* SceneDelegate.swift in Sources */,
+				826B19972D1164AC0056D4F9 /* ImageExtension.swift in Sources */,
 				826B198D2D105BC60056D4F9 /* DetailPresenter.swift in Sources */,
 				826B197A2D1052DD0056D4F9 /* DetailViewController.swift in Sources */,
 				826B19932D107B570056D4F9 /* RandomCollectionViewCell.swift in Sources */,

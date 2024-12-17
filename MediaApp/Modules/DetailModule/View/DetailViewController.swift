@@ -11,7 +11,13 @@ final class DetailViewController: UIViewController {
     //MARK: - Variables
     var presenter: DetailViewPresenterProtocol?
     
-    private let scrollView = UIScrollView()
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        
+        scrollView.showsVerticalScrollIndicator = false
+        
+        return scrollView
+    }()
     
     private let stackView = {
         let stackView = UIStackView()
@@ -85,13 +91,17 @@ final class DetailViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        getImage()
+        //FIXME: Change imageView.image to the presenter.image like
+        guard let image = imageView.image else { return }
+        
+        imageView.image = image.resizedTo(constant: view.bounds.width,
+                                          by: .width)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if view.bounds.height >= stackView.bounds.size.height {
+        if view.bounds.height >= scrollView.contentSize.height {
             return
         }
         
@@ -99,21 +109,6 @@ final class DetailViewController: UIViewController {
         let bottomOffset = CGPoint(x: 0, y: offsetY)
         
         scrollView.setContentOffset(bottomOffset, animated: true)
-    }
-    
-    func getImage() {
-        guard let image = imageView.image else { return }
-        
-        let size = image.size
-        let multiplier: CGFloat = view.bounds.width / size.width
-        let newSize = CGSize(width: size.width * multiplier, height: size.height * multiplier)
-        
-        let renderer = UIGraphicsImageRenderer(size: newSize)
-        let newImage = renderer.image { context in
-            image.draw(in: CGRect(origin: .zero, size: newSize))
-        }
-        
-        imageView.image = newImage
     }
 }
 
@@ -138,12 +133,12 @@ extension DetailViewController: DetailViewProtocol {
 //MARK: Private Functions
 extension DetailViewController {
     private func addSubviews() {
-        stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(authorLabel)
         stackView.addArrangedSubview(downloadsAmountLabel)
         stackView.addArrangedSubview(locationLabel)
         stackView.addArrangedSubview(dateLabel)
         
+        scrollView.addSubview(imageView)
         scrollView.addSubview(stackView)
         view.addSubview(scrollView)
     }
@@ -151,6 +146,7 @@ extension DetailViewController {
     private func setupConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
@@ -159,7 +155,12 @@ extension DetailViewController {
             scrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            imageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            
+            stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor,
+                                           constant: LocalConstants.spacing),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,
                                                constant: LocalConstants.padding),

@@ -59,8 +59,6 @@ extension FavoriteViewController: UITableViewDataSource {
         as? FavoriteTableViewCell ?? FavoriteTableViewCell()
         
         cell.selectionStyle = .none
-        cell.setImage(UIImage(named: "als")!)
-        cell.setAuthor("Author Bill")
         
         return cell
     }

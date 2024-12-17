@@ -74,8 +74,6 @@ extension RandomViewController: UICollectionViewDataSource {
         as? RandomCollectionViewCell ?? RandomCollectionViewCell()
         
         cell.backgroundColor = GlobalConstants.Color.background
-        cell.setImage(UIImage(named: "als")!)
-        
         
         return cell
     }
