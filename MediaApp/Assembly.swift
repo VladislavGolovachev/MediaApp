@@ -12,7 +12,6 @@ protocol AssemblyProtocol {
     func createRandomModule(router: RouterProtocol) -> UIViewController
     func createFavoriteModule(router: RouterProtocol) -> UIViewController
     func createDetailModule(router: RouterProtocol,
-                            isFavorite: Bool,
                             id: String) -> UIViewController
 }
 
@@ -43,7 +42,6 @@ struct Assembly: AssemblyProtocol {
     }
     
     func createDetailModule(router: RouterProtocol,
-                            isFavorite: Bool,
                             id: String) -> UIViewController {
         let vc = DetailViewController()
         let networkManager = NetworkManager()
@@ -55,7 +53,6 @@ struct Assembly: AssemblyProtocol {
                                         dataManager: dataManager,
                                         networkManager: networkManager,
                                         imageLoader: imageLoader,
-                                        isFavorite: isFavorite,
                                         id: id)
         
         vc.presenter = presenter

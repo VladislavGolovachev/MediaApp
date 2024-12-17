@@ -53,7 +53,7 @@ final class RandomPresenter: RandomViewPresenterProtocol {
     
     func showDetailedInfo(for indexPath: IndexPath) {
         if let photos {
-            router.next(isFavorite: false, id: photos[indexPath.row].id)
+            router.next(id: photos[indexPath.row].id)
         } else {
             view?.showAlert(title: "An error caused",
                             message: NetworkError.missingData.rawValue)

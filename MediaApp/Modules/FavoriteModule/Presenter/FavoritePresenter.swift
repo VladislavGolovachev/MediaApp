@@ -34,6 +34,6 @@ final class FavoritePresenter: FavoriteViewPresenterProtocol {
     func showDetailedInfo() {
         //FIXME: Change id
         fatalError()
-        router.next(isFavorite: true, id: "asd")
+        router.next(id: "asd")
     }
 }

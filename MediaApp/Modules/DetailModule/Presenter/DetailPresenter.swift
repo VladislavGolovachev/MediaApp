@@ -9,7 +9,11 @@ import UIKit
 
 //MARK: DetailViewProtocol
 protocol DetailViewProtocol: AnyObject {
-    func updateScreen(with: PhotoInfo)
+    func setImage(_: UIImage)
+    func setAuthor(_: String)
+    func setDownloads(_: String)
+    func setLocationDate(_: String)
+    func animate()
     
     func showAlert(title: String, message: String)
 }
@@ -21,11 +25,12 @@ protocol DetailViewPresenterProtocol: AnyObject {
          dataManager: DataManager,
          networkManager: NetworkManagerProtocol,
          imageLoader: ImageLoadingProtocol,
-         isFavorite: Bool,
          id: String)
     
     func updateScreen()
     func showPreviousScreen()
+    func addToFavorites()
+    func removeFromFavorites()
 }
 
 //MARK: - DetailPresenter
@@ -36,8 +41,8 @@ final class DetailPresenter: DetailViewPresenterProtocol {
     var networkManager: NetworkManagerProtocol
     var imageLoader: ImageLoadingProtocol?
     
-    private var isFavorite: Bool
     private var photoID: String
+    private var photoInfo: PhotoInfo?
     
     // MARK: - Initializers
     init(view: DetailViewProtocol,
@@ -45,47 +50,62 @@ final class DetailPresenter: DetailViewPresenterProtocol {
          dataManager: DataManager,
          networkManager: NetworkManagerProtocol,
          imageLoader: ImageLoadingProtocol,
-         isFavorite: Bool,
          id: String) {
         self.view = view
         self.router = router
         self.dataManager = dataManager
         self.networkManager = networkManager
         self.imageLoader = imageLoader
-        self.isFavorite = isFavorite
         self.photoID = id
     }
     
     // MARK: - Functions
     func updateScreen() {
-        if isFavorite {
-            do {
-                guard let photos = try dataManager?.fetch(amongObjectsWithKeyedValues: [
-                    PhotoKeys.id.rawValue: photoID
-                ]) else {
-                    sendError(weakSelf: self, message: StorageError.unknown.rawValue)
-                    return
-                }
-//                prepareDataToShow(photos[0])
-                
-            } catch(let error) {
-                if let error = error as? StorageError {
-                    sendError(weakSelf: self, message: error.rawValue)
-                } else {
-                    sendError(weakSelf: self, message: StorageError.unknown.rawValue)
-                }
-            }
+        if let photoEntity = isAbleToFetchPhotoFromCoreData(id: photoID) {
+            handleEntity(photoEntity)
         } else {
             networkManager.getPhotoInfo(id: photoID) { [weak self] result in
                 switch result {
                 case .success(let response):
-                    self?.prepareResponseToShow(response)
+                    self?.handleResponse(weakSelf: self, response)
                     
                 case .failure(let error):
                     self?.sendError(weakSelf: self, message: error.rawValue)
                 }
             }
         }
+    }
+    enum PhotoKeys: String {
+        case author         = "author"
+        case creationDate   = "creationDate"
+        case imageData      = "imageData"
+        case id             = "id"
+        case location       = "location"
+    }
+    func addToFavorites() {
+        guard let photoInfo else { return }
+        
+//        do {
+//            try dataManager?.persist(with: [
+//                PhotoKeys.author: photoInfo.author,
+//                PhotoKeys.creationDate: ,
+//                PhotoKeys.imageData: photoInfo.image.data,
+//                PhotoKeys.id: photoID,
+//                PhotoKeys.location: photoInfo.locationDate,
+//                PhotoKeys.downloads: photoInfo.downloads
+//            ])
+//        } catch {
+//            if let error = error as? StorageError {
+//                sendError(weakSelf: self, message: error.rawValue)
+//            } else {
+//                sendError(weakSelf: self,
+//                          message: StorageError.unableToSaveData.rawValue)
+//            }
+//        }
+    }
+    
+    func removeFromFavorites() {
+        
     }
     
     func showPreviousScreen() {
@@ -102,37 +122,44 @@ extension DetailPresenter {
         }
     }
     
-//    private func prepareDataToShow(_ entity: PhotoEntity) {
-//        if let imageData = entity.imageData {
-//            if let image = UIImage(data: imageData) {
-//                DispatchQueue.main.async {
-//                    self.view?.updateImage(image)
-//                }
-//            } else {
-//                sendError(weakSelf: self, message: StorageError.fetchingFailed.rawValue)
-//            }
-//        }
-//        DispatchQueue.main.async {
-//            self.view?.updateAuthor(entity.author ?? "Author not stated")
-//        }
-//        DispatchQueue.main.async {
-//            self.view?.updateDownloads(String(entity.downloads))
-//        }
-//        var locationDate = ""
-//        if let location = entity.location {
-//            locationDate = location
-//        }
-//        if let creationDate = entity.creationDate {
-//            let date = formattedDate(creationDate)
-//            locationDate += "(\(date))"
-//        }
-//        DispatchQueue.main.async {
-//            self.view?.updateLocationDate(locationDate)
-//        }
-//    }
+    private func isAbleToFetchPhotoFromCoreData(id: String) -> PhotoEntity? {
+        do {
+            guard let photos = try dataManager?.fetch(for: id) else {
+                sendError(weakSelf: self, message: StorageError.fetchingFailed.rawValue)
+                return nil
+            }
+            
+            return photos.count < 1 ? nil : photos[0]
+            
+        } catch {
+            if let error = error as? StorageError {
+                sendError(weakSelf: self, message: error.rawValue)
+            } else {
+                sendError(weakSelf: self, message: StorageError.unknown.rawValue)
+            }
+        }
+        
+        return nil
+    }
     
-    private func prepareResponseToShow(_ response: PhotoResponse) {
-        imageLoader?.downloadData(by: response.urls.small) { [weak self] result in
+    private func handleEntity(_ entity: PhotoEntity) {
+        guard let image = UIImage(data: entity.imageData) else {
+            sendError(weakSelf: self, message: StorageError.missingObject.rawValue)
+            return
+        }
+        let photoInfo = PhotoInfo(image: image,
+                                  author: entity.author,
+                                  downloads: Int(entity.downloads),
+                                  location: entity.location,
+                                  date: entity.creationDate)
+        self.photoInfo = photoInfo
+        
+        showPhotoInfo()
+    }
+    
+    private func handleResponse(weakSelf: DetailPresenter?,
+                                _ response: PhotoResponse) {
+        weakSelf?.imageLoader?.downloadData(by: response.urls.small) { [weak self] result in
             switch result {
             case .success(let image):
                 let photoInfo = PhotoInfo(image: image,
@@ -140,9 +167,8 @@ extension DetailPresenter {
                                           downloads: response.downloads,
                                           location: response.user.location,
                                           date: self?.formattedDate(response.creationDate))
-                DispatchQueue.main.async {
-                    self?.view?.updateScreen(with: photoInfo)
-                }
+                self?.photoInfo = photoInfo
+                self?.showPhotoInfo()
                 
             case .failure(let error):
                 self?.sendError(weakSelf: self, message: error.rawValue)
@@ -150,13 +176,36 @@ extension DetailPresenter {
         }
     }
     
-    private func formattedDate(_ dateString: String) -> String? {
+    private func showPhotoInfo() {
+        guard let photoInfo else { return }
+        
+        let location = photoInfo.location ?? "Location not stated"
+        let date = formattedString(photoInfo.date) ?? "date not stated"
+        
+        DispatchQueue.main.async {
+            self.view?.setImage(photoInfo.image)
+            self.view?.setAuthor("Author: " + (photoInfo.author ?? "Author not stated"))
+            self.view?.setDownloads("Downloads: " + String(photoInfo.downloads))
+            self.view?.setLocationDate(location + " (\(date))")
+            
+            self.view?.animate()
+        }
+    }
+    
+    private func formattedDate(_ dateString: String?) -> Date? {
+        guard let dateString else { return nil }
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        guard let date = dateFormatter.date(from: dateString) else {
-            return nil
-        }
+        let date = dateFormatter.date(from: dateString)
         
+        return date
+    }
+    
+    private func formattedString(_ date: Date?) -> String? {
+        guard let date else { return nil }
+        
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
         let string = dateFormatter.string(from: date)
         

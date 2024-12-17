@@ -121,8 +121,10 @@ extension DetailViewController {
     @objc func addToFavsAction(_ sender: UIBarButtonItem) {
         if isFavorite {
             sender.image = UIImage(systemName: "heart")
+            presenter?.addToFavorites()
         } else {
             sender.image = UIImage(systemName: "heart.fill")
+            presenter?.removeFromFavorites()
         }
         
         isFavorite.toggle()
@@ -131,13 +133,24 @@ extension DetailViewController {
 
 //MARK: - DetailViewProtocol
 extension DetailViewController: DetailViewProtocol {
-    func updateScreen(with photoInfo: PhotoInfo) {
+    func setImage(_ image: UIImage) {
+        imageView.image = image
+    }
+    
+    func setAuthor(_ author: String) {
+        authorLabel.text = author
+    }
+    
+    func setDownloads(_ downloads: String) {
+        downloadsAmountLabel.text = downloads
+    }
+    
+    func setLocationDate(_ locationDate: String) {
+        locationDateLabel.text = locationDate
+    }
+    
+    func animate() {
         activityIndicatorView.stopAnimating()
-        
-        imageView.image = photoInfo.image
-        authorLabel.text = photoInfo.author
-        downloadsAmountLabel.text = photoInfo.downloads
-        locationDateLabel.text = photoInfo.locationDate
         
         UIView.animate(withDuration: 0.8) {
             self.imageView.alpha = 1

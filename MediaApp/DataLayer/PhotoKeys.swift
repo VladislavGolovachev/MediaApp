@@ -13,4 +13,5 @@ enum PhotoKeys: String {
     case imageData      = "imageData"
     case id             = "id"
     case location       = "location"
+    case downloads      = "downloads"
 }

@@ -10,7 +10,7 @@ import UIKit
 //MARK: RouterProtocol
 protocol RouterProtocol: AnyObject {
     func initiateRootViewController() -> UIViewController
-    func next(isFavorite: Bool, id: String)
+    func next(id: String)
     func pop()
 }
 
@@ -30,13 +30,11 @@ final class Router: RouterProtocol {
         return tabController as UIViewController
     }
     
-    func next(isFavorite: Bool, id: String) {
+    func next(id: String) {
         guard let navVC =
         rootViewController?.selectedViewController as? UINavigationController else { return }
 
-        let vc = assembly.createDetailModule(router: self,
-                                             isFavorite: isFavorite,
-                                             id: id)
+        let vc = assembly.createDetailModule(router: self, id: id)
         
         navVC.pushViewController(vc, animated: true)
     }

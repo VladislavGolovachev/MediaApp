@@ -16,8 +16,8 @@ extension PhotoEntity {
 
     @NSManaged public var author: String?
     @NSManaged public var creationDate: Date?
-    @NSManaged public var imageData: Data?
-    @NSManaged public var id: String?
+    @NSManaged public var imageData: Data
+    @NSManaged public var id: String
     @NSManaged public var location: String?
     @NSManaged public var downloads: Int32
 }
