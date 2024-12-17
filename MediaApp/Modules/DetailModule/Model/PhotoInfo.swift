@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Photoinfo {
+struct PhotoInfo {
     let user: String
     let downloads: Int
     let location: String

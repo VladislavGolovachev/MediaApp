@@ -42,7 +42,15 @@ struct Assembly: AssemblyProtocol {
     
     func createDetailModule(router: RouterProtocol) -> UIViewController {
         let vc = DetailViewController()
-        let presenter = DetailPresenter(view: vc, router: router)
+        let networkManager = NetworkManager()
+        let dataManager = DataManager()
+        let imageLoader = ImageLoader()
+        
+        let presenter = DetailPresenter(view: vc,
+                                        router: router,
+                                        dataManager: dataManager,
+                                        networkManager: networkManager,
+                                        imageLoader: imageLoader)
         
         vc.presenter = presenter
         

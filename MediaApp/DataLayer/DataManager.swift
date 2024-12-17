@@ -26,13 +26,15 @@ final class DataManager: CoreDataStorageManager {
             }
             
             let request = PhotoEntity.fetchRequest()
-            let sortDescriptor = NSSortDescriptor(key: PhotoKeys.keyDate.rawValue,
-                                                   ascending: true)
+            let sortDescriptor = NSSortDescriptor(key: PhotoKeys.creationDate.rawValue,
+                                                  ascending: true)
             request.sortDescriptors = [sortDescriptor]
             
-            let key = PhotoKeys.keyDate.rawValue
-            if let date = keyedValues?[key] as? NSDate {
-                let predicate = NSPredicate(format: "\(key) == %@", date)
+            let key = PhotoKeys.id.rawValue
+            if let number = keyedValues?[key] as? Int {
+                let nsNumber = NSNumber(value: number)
+                let predicate = NSPredicate(format: "\(key) == %@",
+                                            nsNumber)
                 request.predicate = predicate
             }
             
