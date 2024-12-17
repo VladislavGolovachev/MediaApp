@@ -39,6 +39,9 @@
 		826B19B92D11B1200056D4F9 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19B82D11B1200056D4F9 /* Storage.swift */; };
 		826B19BB2D11B1490056D4F9 /* CoreDataStorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19BA2D11B1380056D4F9 /* CoreDataStorageProtocols.swift */; };
 		826B19BD2D11B1690056D4F9 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19BC2D11B1650056D4F9 /* StorageError.swift */; };
+		826B19D02D11BA8D0056D4F9 /* MediaModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 826B19CE2D11BA8D0056D4F9 /* MediaModel.xcdatamodeld */; };
+		826B19D32D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D22D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift */; };
+		826B19D42D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D12D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +80,9 @@
 		826B19B82D11B1200056D4F9 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		826B19BA2D11B1380056D4F9 /* CoreDataStorageProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageProtocols.swift; sourceTree = "<group>"; };
 		826B19BC2D11B1650056D4F9 /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
+		826B19CF2D11BA8D0056D4F9 /* MediaModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MediaModel.xcdatamodel; sourceTree = "<group>"; };
+		826B19D12D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PhotoEntity+CoreDataClass.swift"; path = "MediaApp/PhotoEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		826B19D22D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PhotoEntity+CoreDataProperties.swift"; path = "MediaApp/PhotoEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		F4D331A6FC25F5A447E845A2 /* Pods_MediaApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -305,8 +311,19 @@
 				826B19B62D11AED80056D4F9 /* DataManager.swift */,
 				826B19B82D11B1200056D4F9 /* Storage.swift */,
 				826B19BA2D11B1380056D4F9 /* CoreDataStorageProtocols.swift */,
+				826B19D52D11BB6E0056D4F9 /* CoreDataModel */,
 			);
 			path = DataLayer;
+			sourceTree = "<group>";
+		};
+		826B19D52D11BB6E0056D4F9 /* CoreDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				826B19CE2D11BA8D0056D4F9 /* MediaModel.xcdatamodeld */,
+				826B19D12D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift */,
+				826B19D22D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift */,
+			);
+			path = CoreDataModel;
 			sourceTree = "<group>";
 		};
 		DDE5F1D6229E8CE646686BF3 /* Pods */ = {
@@ -458,7 +475,10 @@
 				826B198B2D105B960056D4F9 /* FavoritePresenter.swift in Sources */,
 				826B19B72D11AEDB0056D4F9 /* DataManager.swift in Sources */,
 				826B19A22D11802F0056D4F9 /* UnsplashAPIEndPoint.swift in Sources */,
+				826B19D02D11BA8D0056D4F9 /* MediaModel.xcdatamodeld in Sources */,
 				826B19BD2D11B1690056D4F9 /* StorageError.swift in Sources */,
+				826B19D32D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift in Sources */,
+				826B19D42D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift in Sources */,
 				826B19692D103AA10056D4F9 /* RandomViewController.swift in Sources */,
 				826B19852D10543A0056D4F9 /* RandomPresenter.swift in Sources */,
 				826B19B92D11B1200056D4F9 /* Storage.swift in Sources */,
@@ -684,6 +704,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		826B19CE2D11BA8D0056D4F9 /* MediaModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				826B19CF2D11BA8D0056D4F9 /* MediaModel.xcdatamodel */,
+			);
+			currentVersion = 826B19CF2D11BA8D0056D4F9 /* MediaModel.xcdatamodel */;
+			path = MediaModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 826B193D2D1039FA0056D4F9 /* Project object */;
 }
