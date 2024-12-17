@@ -48,7 +48,7 @@ extension UnsplashAPIEndPoint: EndPointType {
             
         case .search(let keyword):
             queryItems.append(URLQueryItem(name: "per_page",
-                                           value: String(42)))
+                                           value: String(20)))
             queryItems.append(URLQueryItem(name: "query",
                                            value: keyword))
             

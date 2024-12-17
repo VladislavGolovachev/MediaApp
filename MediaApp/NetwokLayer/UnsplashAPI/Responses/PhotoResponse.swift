@@ -8,10 +8,10 @@
 import Foundation
 
 struct PhotoResponse: Decodable {
-    let creationDate: Date
-    let downloads: String
+    let creationDate: String
+    let downloads: Int
     let user: User
-    let urls: [URLPhoto]
+    let urls: URLPhoto
     
     private enum CodingKeys: String, CodingKey {
         case creationDate = "created_at"

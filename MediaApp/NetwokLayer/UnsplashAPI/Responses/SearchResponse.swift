@@ -13,5 +13,5 @@ struct SearchResponse: Decodable {
 
 struct SearchPhoto: Decodable {
     let id: String
-    let urls: [URLPhoto]
+    let urls: URLPhoto
 }

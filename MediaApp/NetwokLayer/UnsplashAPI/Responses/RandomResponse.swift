@@ -7,5 +7,5 @@
 
 struct RandomResponse: Decodable {
     let id: String
-    let urls: [URLPhoto]
+    let urls: URLPhoto
 }

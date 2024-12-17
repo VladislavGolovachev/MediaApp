@@ -135,7 +135,7 @@ extension RandomViewController {
 extension RandomViewController {
     private enum LocalConstants {
         static let title            = "Collection Pictures"
-        static let itemsPerRow      = 3
+        static let itemsPerRow      = 2
         static let spacing: CGFloat = 2
         static let padding: CGFloat = 4
     }
