@@ -27,7 +27,7 @@ final class ImageLoader: ImageLoadingProtocol {
                 let image = imageResult.image
                 completion(.success(image))
                 
-            case .failure(let error):
+            case .failure(_):
                 completion(.failure(.missingURL))
             }
         }
