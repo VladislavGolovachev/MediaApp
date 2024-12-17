@@ -50,7 +50,7 @@ final class RandomViewController: UIViewController {
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.fetchImages(isNewList: true)
+        presenter?.fetchImages(isNewList: true, keyword: nil)
         
         view.backgroundColor = GlobalConstants.Color.background
         customizeBars()
@@ -78,7 +78,7 @@ final class RandomViewController: UIViewController {
 extension RandomViewController {
     @objc func refreshAction(_ sender: UIRefreshControl) {
         elementsCount = 0
-        presenter?.fetchImages(isNewList: true)
+        presenter?.fetchImages(isNewList: true, keyword: nil)
     }
 }
 
@@ -115,7 +115,7 @@ extension RandomViewController: UICollectionViewDelegate {
                         cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         if indexPath.row == elementsCount - 1 {
-            presenter?.fetchImages(isNewList: false)
+            presenter?.fetchImages(isNewList: false, keyword: nil)
         }
     }
 }
@@ -133,7 +133,7 @@ extension RandomViewController: UICollectionViewDelegateFlowLayout {
 extension RandomViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
-        presenter?.searchFor(text)
+        presenter?.fetchImages(isNewList: true, keyword: text)
     }
 }
 
@@ -196,6 +196,7 @@ extension RandomViewController {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.barTintColor = GlobalConstants.Color.background
         
         navigationItem.searchController = searchController
     }

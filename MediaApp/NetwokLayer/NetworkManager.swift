@@ -13,6 +13,7 @@ protocol NetworkManagerProtocol {
     func getPhotoInfo(id: String,
                       completion: @escaping (Result<PhotoResponse, NetworkError>) -> Void)
     func searchPhotos(keyword: String,
+                      page: Int,
                       completion: @escaping (Result<[BasicPhotoResponse], NetworkError>) -> Void)
 }
 
@@ -72,8 +73,9 @@ struct NetworkManager: NetworkManagerProtocol {
     }
     
     func searchPhotos(keyword: String,
+                      page: Int,
                       completion: @escaping (Result<[BasicPhotoResponse], NetworkError>) -> Void) {
-        router.request(.search(keyword: keyword)) { data, response, error in
+        router.request(.search(keyword: keyword, page: page)) { data, response, error in
             if error != nil {
                 completion(.failure(.networkConnection))
                 return

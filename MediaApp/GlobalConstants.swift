@@ -10,7 +10,7 @@ import UIKit
 enum GlobalConstants {
     enum Color {
         static let background: UIColor      = .white
-        static let cell: UIColor            = .init(white: 0.9, alpha: 0.3)
+        static let cell: UIColor            = .yellow
         static let title: UIColor           = .black
         static let secondaryText: UIColor   = .init(red: 0.5, green: 0.5, blue: 0.5, alpha: 1)
     }

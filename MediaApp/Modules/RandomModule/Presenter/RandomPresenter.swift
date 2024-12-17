@@ -24,9 +24,8 @@ protocol RandomViewPresenterProtocol: AnyObject {
          networkManager: NetworkManagerProtocol)
     
     func showDetailedInfo()
-    func fetchImages(isNewList: Bool)
+    func fetchImages(isNewList: Bool, keyword: String?)
     func downloadImage(for: IndexPath)
-    func searchFor(_: String)
 }
 
 //MARK: - RandomPresenter
@@ -38,6 +37,8 @@ final class RandomPresenter: RandomViewPresenterProtocol {
     var imageLoader: ImageLoadingProtocol?
     
     private var photos: [PhotoModel]?
+    private var searchingKeyword: String?
+    private var page = 1
     
     //MARK: RandomViewPresenterProtocol's Implementation
     init(view: RandomViewProtocol,
@@ -54,21 +55,18 @@ final class RandomPresenter: RandomViewPresenterProtocol {
         router.next()
     }
     
-    func fetchImages(isNewList: Bool) {
+    func fetchImages(isNewList: Bool, keyword: String?) {
         if isNewList {
+            searchingKeyword = keyword
+            page = 1
+            
             resetKingfisher()
         }
         
-        networkManager.getPhotos(count: 20) { [weak self] result in
-            switch result {
-            case .success(let response):
-                self?.handleResponse(weakSelf: self,
-                                     photos: response,
-                                     isNewList: isNewList)
-                
-            case .failure(let error):
-                self?.sendError(weakSelf: self, error: error)
-            }
+        if let searchingKeyword {
+            searchFor(searchingKeyword, isNewList: isNewList)
+        } else {
+            getImages(isNewList: isNewList)
         }
     }
     
@@ -88,24 +86,40 @@ final class RandomPresenter: RandomViewPresenterProtocol {
             }
         }
     }
-    
-    func searchFor(_ text: String) {
-        networkManager.searchPhotos(keyword: text) { [weak self] result in
+}
+
+//MARK: - Private Functions
+extension RandomPresenter {
+    private func getImages(isNewList: Bool) {
+        networkManager.getPhotos(count: 20) { [weak self] result in
             switch result {
             case .success(let response):
                 self?.handleResponse(weakSelf: self,
                                      photos: response,
-                                     isNewList: true)
+                                     isNewList: isNewList)
                 
             case .failure(let error):
                 self?.sendError(weakSelf: self, error: error)
             }
         }
     }
-}
-
-//MARK: - Private Functions
-extension RandomPresenter {
+    
+    private func searchFor(_ text: String, isNewList: Bool) {
+        networkManager.searchPhotos(keyword: text, page: page) { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.handleResponse(weakSelf: self,
+                                     photos: response,
+                                     isNewList: isNewList)
+                
+            case .failure(let error):
+                self?.sendError(weakSelf: self, error: error)
+            }
+            
+            self?.page += 1
+        }
+    }
+    
     private func formattedResponse(_ response: [BasicPhotoResponse]) -> [PhotoModel] {
         var photos = [PhotoModel]()
         
