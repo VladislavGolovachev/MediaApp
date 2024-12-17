@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23507" systemVersion="24B91" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="PhotoEntity" representedClassName="PhotoEntity" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
+        <attribute name="keyDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="location" optional="YES" attributeType="String"/>
+    </entity>
+</model>

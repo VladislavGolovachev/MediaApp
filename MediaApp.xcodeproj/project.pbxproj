@@ -35,6 +35,14 @@
 		826B19AF2D11916B0056D4F9 /* RandomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19AE2D11915C0056D4F9 /* RandomResponse.swift */; };
 		826B19B12D1193CA0056D4F9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19B02D1193CA0056D4F9 /* NetworkManager.swift */; };
 		826B19B52D1197AF0056D4F9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19B42D1197AF0056D4F9 /* ImageLoader.swift */; };
+		826B19B72D11AEDB0056D4F9 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19B62D11AED80056D4F9 /* DataManager.swift */; };
+		826B19B92D11B1200056D4F9 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19B82D11B1200056D4F9 /* Storage.swift */; };
+		826B19BB2D11B1490056D4F9 /* CoreDataStorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19BA2D11B1380056D4F9 /* CoreDataStorageProtocols.swift */; };
+		826B19BD2D11B1690056D4F9 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19BC2D11B1650056D4F9 /* StorageError.swift */; };
+		826B19D02D11BA8D0056D4F9 /* MediaModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 826B19CE2D11BA8D0056D4F9 /* MediaModel.xcdatamodeld */; };
+		826B19D32D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D22D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift */; };
+		826B19D42D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D12D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift */; };
+		826B19D72D11BD650056D4F9 /* PhotoKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D62D11BD5E0056D4F9 /* PhotoKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +77,14 @@
 		826B19AE2D11915C0056D4F9 /* RandomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomResponse.swift; sourceTree = "<group>"; };
 		826B19B02D1193CA0056D4F9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		826B19B42D1197AF0056D4F9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		826B19B62D11AED80056D4F9 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		826B19B82D11B1200056D4F9 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		826B19BA2D11B1380056D4F9 /* CoreDataStorageProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageProtocols.swift; sourceTree = "<group>"; };
+		826B19BC2D11B1650056D4F9 /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
+		826B19CF2D11BA8D0056D4F9 /* MediaModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MediaModel.xcdatamodel; sourceTree = "<group>"; };
+		826B19D12D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PhotoEntity+CoreDataClass.swift"; path = "MediaApp/PhotoEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		826B19D22D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PhotoEntity+CoreDataProperties.swift"; path = "MediaApp/PhotoEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		826B19D62D11BD5E0056D4F9 /* PhotoKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoKeys.swift; sourceTree = "<group>"; };
 		F4D331A6FC25F5A447E845A2 /* Pods_MediaApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -118,6 +134,7 @@
 				826B19642D103AA10056D4F9 /* SceneDelegate.swift */,
 				826B19862D1054C80056D4F9 /* Router.swift */,
 				826B19882D1055940056D4F9 /* Assembly.swift */,
+				826B19BE2D11B21F0056D4F9 /* DataLayer */,
 				826B19992D116AB00056D4F9 /* NetwokLayer */,
 				826B19702D104F5E0056D4F9 /* Modules */,
 				826B19982D1164AF0056D4F9 /* Extensions */,
@@ -258,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				826B199F2D116B750056D4F9 /* NetworkError.swift */,
+				826B19BC2D11B1650056D4F9 /* StorageError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -287,6 +305,28 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		826B19BE2D11B21F0056D4F9 /* DataLayer */ = {
+			isa = PBXGroup;
+			children = (
+				826B19B62D11AED80056D4F9 /* DataManager.swift */,
+				826B19B82D11B1200056D4F9 /* Storage.swift */,
+				826B19BA2D11B1380056D4F9 /* CoreDataStorageProtocols.swift */,
+				826B19D62D11BD5E0056D4F9 /* PhotoKeys.swift */,
+				826B19D52D11BB6E0056D4F9 /* CoreDataModel */,
+			);
+			path = DataLayer;
+			sourceTree = "<group>";
+		};
+		826B19D52D11BB6E0056D4F9 /* CoreDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				826B19CE2D11BA8D0056D4F9 /* MediaModel.xcdatamodeld */,
+				826B19D12D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift */,
+				826B19D22D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift */,
+			);
+			path = CoreDataModel;
 			sourceTree = "<group>";
 		};
 		DDE5F1D6229E8CE646686BF3 /* Pods */ = {
@@ -415,6 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				826B19B12D1193CA0056D4F9 /* NetworkManager.swift in Sources */,
+				826B19BB2D11B1490056D4F9 /* CoreDataStorageProtocols.swift in Sources */,
 				826B19A42D1180480056D4F9 /* SearchResponse.swift in Sources */,
 				826B19A02D116B750056D4F9 /* NetworkError.swift in Sources */,
 				826B199D2D116B180056D4F9 /* EndPointType.swift in Sources */,
@@ -429,15 +470,22 @@
 				826B19AF2D11916B0056D4F9 /* RandomResponse.swift in Sources */,
 				826B197A2D1052DD0056D4F9 /* DetailViewController.swift in Sources */,
 				826B19B52D1197AF0056D4F9 /* ImageLoader.swift in Sources */,
+				826B19D72D11BD650056D4F9 /* PhotoKeys.swift in Sources */,
 				826B19932D107B570056D4F9 /* RandomCollectionViewCell.swift in Sources */,
 				826B198F2D10730D0056D4F9 /* GlobalConstants.swift in Sources */,
 				826B19952D1094C80056D4F9 /* FavoriteTableViewCell.swift in Sources */,
 				826B19872D1054CA0056D4F9 /* Router.swift in Sources */,
 				826B19782D1052D50056D4F9 /* FavoriteViewController.swift in Sources */,
 				826B198B2D105B960056D4F9 /* FavoritePresenter.swift in Sources */,
+				826B19B72D11AEDB0056D4F9 /* DataManager.swift in Sources */,
 				826B19A22D11802F0056D4F9 /* UnsplashAPIEndPoint.swift in Sources */,
+				826B19D02D11BA8D0056D4F9 /* MediaModel.xcdatamodeld in Sources */,
+				826B19BD2D11B1690056D4F9 /* StorageError.swift in Sources */,
+				826B19D32D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift in Sources */,
+				826B19D42D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift in Sources */,
 				826B19692D103AA10056D4F9 /* RandomViewController.swift in Sources */,
 				826B19852D10543A0056D4F9 /* RandomPresenter.swift in Sources */,
+				826B19B92D11B1200056D4F9 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +708,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		826B19CE2D11BA8D0056D4F9 /* MediaModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				826B19CF2D11BA8D0056D4F9 /* MediaModel.xcdatamodel */,
+			);
+			currentVersion = 826B19CF2D11BA8D0056D4F9 /* MediaModel.xcdatamodel */;
+			path = MediaModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 826B193D2D1039FA0056D4F9 /* Project object */;
 }
