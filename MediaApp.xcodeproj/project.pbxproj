@@ -99,9 +99,9 @@
 				826B19862D1054C80056D4F9 /* Router.swift */,
 				826B19882D1055940056D4F9 /* Assembly.swift */,
 				826B19702D104F5E0056D4F9 /* Modules */,
-				826B195E2D103AA10056D4F9 /* Assets.xcassets */,
 				826B19982D1164AF0056D4F9 /* Extensions */,
 				826B198E2D10730D0056D4F9 /* GlobalConstants.swift */,
+				826B195E2D103AA10056D4F9 /* Assets.xcassets */,
 				826B195F2D103AA10056D4F9 /* Info.plist */,
 				826B19612D103AA10056D4F9 /* LaunchScreen.storyboard */,
 			);
