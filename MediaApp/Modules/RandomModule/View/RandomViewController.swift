@@ -140,7 +140,9 @@ extension RandomViewController: UISearchBarDelegate {
 //MARK: - RandomViewProtocol
 extension RandomViewController: RandomViewProtocol {
     func updateCollection(count: Int) {
-        refreshControl.endRefreshing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.refreshControl.endRefreshing()
+        }
         
         elementsCount = count
         collectionView.reloadSections(IndexSet(integer: 0))
@@ -152,12 +154,13 @@ extension RandomViewController: RandomViewProtocol {
     }
     
     func showAlert(title: String, message: String) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.refreshControl.endRefreshing()
+        }
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
-        let action = UIAlertAction(title: "Close", style: .default) { [weak self] _ in
-            self?.refreshControl.endRefreshing()
-        }
+        let action = UIAlertAction(title: "Close", style: .default)
         alert.addAction(action)
         
         present(alert, animated: true)
