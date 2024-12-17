@@ -64,6 +64,8 @@ final class DetailViewController: UIViewController {
         return label
     }()
     
+    private var isFavorite = false
+    
     
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
@@ -72,16 +74,20 @@ final class DetailViewController: UIViewController {
         view.backgroundColor = GlobalConstants.Color.background
         tabBarController?.tabBar.isHidden = true
         
+        let button = UIBarButtonItem(image: UIImage(systemName: "heart"),
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(addToFavsAction(_:)))
+        navigationItem.rightBarButtonItem = button
+        
+        
 //        imageView.image = UIImage(named: "als")
-        imageView.image = UIImage(named: "test2")
-//        imageView.image = UIImage(named: "test3")
+//        imageView.image = UIImage(named: "test2")
+        imageView.image = UIImage(named: "test3")
         authorLabel.text = "Author: ArthuaBill"
         locationLabel.text = "Canada, Mexnico (12.02.2019)"
 //        dateLabel.text = "12.02.2019"
         downloadsAmountLabel.text = "11230914 downloads"
-        
-//        imageView.image?.scale = 0.1
-        imageView.contentScaleFactor = 0.2
         
         addSubviews()
         setupConstraints()
@@ -89,6 +95,15 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         getImage()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let offsetY = scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom
+        let bottomOffset = CGPoint(x: 0, y: offsetY)
+        
+        scrollView.setContentOffset(bottomOffset, animated: true)
     }
     
     func getImage() {
@@ -104,6 +119,19 @@ final class DetailViewController: UIViewController {
         }
         
         imageView.image = newImage
+    }
+}
+
+//MARK: - Actions
+extension DetailViewController {
+    @objc func addToFavsAction(_ sender: UIBarButtonItem) {
+        if isFavorite {
+            sender.image = UIImage(systemName: "heart")
+        } else {
+            sender.image = UIImage(systemName: "heart.fill")
+        }
+        
+        isFavorite.toggle()
     }
 }
 
@@ -129,15 +157,6 @@ extension DetailViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
-        var imageAspectRatioConstraint: NSLayoutConstraint?
-//        if let size = imageView.image?.size, size.height < size.width {
-            imageAspectRatioConstraint = imageView.heightAnchor.constraint(
-                lessThanOrEqualTo: imageView.widthAnchor,
-                multiplier: imageView.image!.size.height / imageView.image!.size.width
-            )
-//        }
-        imageAspectRatioConstraint?.isActive = true
-        
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
@@ -147,13 +166,10 @@ extension DetailViewController {
             
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-//            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-//            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor,
-//                                               constant: LocalConstants.padding),
-//            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor,
-//                                                constant: -LocalConstants.padding)
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,
+                                               constant: LocalConstants.padding),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,
+                                                constant: LocalConstants.padding)
         ])
     }
 }
