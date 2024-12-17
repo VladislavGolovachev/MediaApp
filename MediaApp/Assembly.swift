@@ -18,7 +18,13 @@ protocol AssemblyProtocol {
 struct Assembly: AssemblyProtocol {
     func createRandomModule(router: RouterProtocol) -> UIViewController {
         let vc = RandomViewController()
-        let presenter = RandomPresenter(view: vc, router: router)
+        let networkManager = NetworkManager()
+        let imageLoader = ImageLoader()
+        
+        let presenter = RandomPresenter(view: vc,
+                                        router: router,
+                                        imageLoader: imageLoader,
+                                        networkManager: networkManager)
         
         vc.presenter = presenter
         

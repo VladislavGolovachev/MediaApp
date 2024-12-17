@@ -13,7 +13,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     private let backView: UIView = {
         let view = UIView()
-        view.backgroundColor = LocalConstants.cellColor
+        view.backgroundColor = GlobalConstants.Color.cell
         view.layer.cornerRadius = LocalConstants.cornerRadius
         
         return view
@@ -112,7 +112,6 @@ extension FavoriteTableViewCell {
     private enum LocalConstants {
         static let font: UIFont = .systemFont(ofSize: 18,
                                               weight: .medium)
-        static let cellColor = UIColor(white: 0.9, alpha: 0.3)
         static let cornerRadius: CGFloat = 16
         
         enum Padding {

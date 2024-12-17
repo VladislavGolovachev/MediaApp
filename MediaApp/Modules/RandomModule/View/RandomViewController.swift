@@ -11,7 +11,8 @@ final class RandomViewController: UIViewController {
     //MARK: - Variables
     var presenter: RandomViewPresenterProtocol?
     
-    var cellSize: CGSize = .zero
+    private var cellSize: CGSize = .zero
+    private var elementsCount = 0
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -44,6 +45,7 @@ final class RandomViewController: UIViewController {
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.fetchImages(isNewList: true)
         
         view.backgroundColor = GlobalConstants.Color.background
         customizeBars()
@@ -53,7 +55,9 @@ final class RandomViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        let spaceWidth = CGFloat(LocalConstants.itemsPerRow - 1) * LocalConstants.spacing + LocalConstants.padding * 2.0
+        let spaceWidth = CGFloat(LocalConstants.itemsPerRow - 1) * LocalConstants.spacing
+        + LocalConstants.padding * 2.0
+        
         let cellWidth = Int((view.bounds.width - spaceWidth) / CGFloat(LocalConstants.itemsPerRow))
         
         cellSize = CGSize(width: cellWidth, height: cellWidth)
@@ -76,7 +80,7 @@ extension RandomViewController {
 extension RandomViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return elementsCount
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -86,7 +90,9 @@ extension RandomViewController: UICollectionViewDataSource {
                                                       for: indexPath)
         as? RandomCollectionViewCell ?? RandomCollectionViewCell()
         
-        cell.backgroundColor = GlobalConstants.Color.background
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            self.presenter?.downloadImage(for: indexPath)
+        }
         
         return cell
     }
@@ -94,8 +100,17 @@ extension RandomViewController: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegate
 extension RandomViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
         presenter?.showDetailedInfo()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay
+                        cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        if indexPath.row == elementsCount - 1 {
+            presenter?.fetchImages(isNewList: false)
+        }
     }
 }
 
@@ -117,7 +132,24 @@ extension RandomViewController: UISearchBarDelegate {
 
 //MARK: - RandomViewProtocol
 extension RandomViewController: RandomViewProtocol {
+    func updateCollection(count: Int) {
+        elementsCount = count
+        collectionView.reloadData()
+    }
     
+    func setImage(_ image: UIImage, for indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? RandomCollectionViewCell
+        cell?.setImage(image)
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Close", style: .default))
+        
+        present(alert, animated: true)
+    }
 }
 
 //MARK: - Private Functions

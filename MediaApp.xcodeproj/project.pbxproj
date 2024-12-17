@@ -44,6 +44,7 @@
 		826B19D42D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D12D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift */; };
 		826B19D72D11BD650056D4F9 /* PhotoKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D62D11BD5E0056D4F9 /* PhotoKeys.swift */; };
 		826B19D92D11C1F20056D4F9 /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D82D11C1E80056D4F9 /* PhotoInfo.swift */; };
+		826B19DB2D11CD380056D4F9 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19DA2D11CD290056D4F9 /* PhotoModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		826B19D22D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PhotoEntity+CoreDataProperties.swift"; path = "MediaApp/PhotoEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		826B19D62D11BD5E0056D4F9 /* PhotoKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoKeys.swift; sourceTree = "<group>"; };
 		826B19D82D11C1E80056D4F9 /* PhotoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
+		826B19DA2D11CD290056D4F9 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		F4D331A6FC25F5A447E845A2 /* Pods_MediaApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -152,6 +154,7 @@
 		826B19702D104F5E0056D4F9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				826B19DA2D11CD290056D4F9 /* PhotoModel.swift */,
 				826B19722D1051F80056D4F9 /* RandomModule */,
 				826B19732D10525A0056D4F9 /* FavoriteModule */,
 				826B19742D1052640056D4F9 /* DetailModule */,
@@ -471,6 +474,7 @@
 				826B19BD2D11B1690056D4F9 /* StorageError.swift in Sources */,
 				826B19D32D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift in Sources */,
 				826B19D42D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift in Sources */,
+				826B19DB2D11CD380056D4F9 /* PhotoModel.swift in Sources */,
 				826B19692D103AA10056D4F9 /* RandomViewController.swift in Sources */,
 				826B19852D10543A0056D4F9 /* RandomPresenter.swift in Sources */,
 				826B19B92D11B1200056D4F9 /* Storage.swift in Sources */,
