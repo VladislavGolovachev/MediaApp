@@ -52,6 +52,11 @@ final class RandomViewController: UIViewController {
         
         cellSize = CGSize(width: cellWidth, height: cellWidth)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tabBarController?.tabBar.isHidden = false
+    }
 }
 
 //MARK: - UICollectionViewDataSource
@@ -69,14 +74,21 @@ extension RandomViewController: UICollectionViewDataSource {
         as? RandomCollectionViewCell ?? RandomCollectionViewCell()
         
         cell.backgroundColor = GlobalConstants.Color.background
-        cell.setImage(UIImage(systemName: "bell")!)
+        cell.setImage(UIImage(named: "als")!)
         
         
         return cell
     }
 }
 
-//MARK: UICollectionViewDelegateFlowLayout
+//MARK: - UICOllectionViewDelegate
+extension RandomViewController {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter?.showDetailedInfo()
+    }
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
 extension RandomViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -108,6 +120,7 @@ extension RandomViewController {
     
     private func customizeBars() {
         tabBarController?.tabBar.barTintColor = GlobalConstants.Color.background
+        tabBarController?.tabBar.isHidden = false
         
         navigationController?.navigationBar.barTintColor = GlobalConstants.Color.background
         navigationController?.navigationBar.backgroundColor = GlobalConstants.Color.background

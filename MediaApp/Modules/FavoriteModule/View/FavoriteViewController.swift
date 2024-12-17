@@ -38,6 +38,11 @@ final class FavoriteViewController: UIViewController {
         view.addSubview(tableView)
         setupConstraints()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tabBarController?.tabBar.isHidden = false
+    }
 }
 
 //MARK: - UITableViewDataSource
@@ -51,8 +56,11 @@ extension FavoriteViewController: UITableViewDataSource {
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.reuseIdentifier,
                                                  for: indexPath)
+        as? FavoriteTableViewCell ?? FavoriteTableViewCell()
         
         cell.selectionStyle = .none
+        cell.setImage(UIImage(named: "als")!)
+        cell.setAuthor("Author Bill")
         
         return cell
     }
@@ -60,7 +68,9 @@ extension FavoriteViewController: UITableViewDataSource {
 
 //MARK: - UITableViewDelegate
 extension FavoriteViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.showDetailedInfo()
+    }
 }
 
 //MARK: - FavoriteViewProtocol

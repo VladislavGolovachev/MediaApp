@@ -21,7 +21,6 @@ final class FavoriteTableViewCell: UITableViewCell {
     private lazy var pictureImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = GlobalConstants.Color.background
-        imageView.image = UIImage(systemName: "bell")
         
         imageView.layer.cornerRadius = LocalConstants.cornerRadius
         
@@ -114,7 +113,7 @@ extension FavoriteTableViewCell {
         static let font: UIFont = .systemFont(ofSize: 18,
                                               weight: .medium)
         static let cellColor = UIColor(white: 0.9, alpha: 0.3)
-        static let cornerRadius: CGFloat = 8
+        static let cornerRadius: CGFloat = 16
         
         enum Padding {
             static let content: CGFloat         = 8
