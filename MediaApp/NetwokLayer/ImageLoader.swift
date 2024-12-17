@@ -10,18 +10,26 @@ import Foundation
 
 protocol ImageLoadingProtocol {
     func downloadData(by urlString: String,
-                      completion: (Result<Data, NetworkError>) -> Void)
+                      completion: @escaping (Result<UIImage, NetworkError>) -> Void)
 }
 
 final class ImageLoader: ImageLoadingProtocol {
     func downloadData(by urlString: String,
-                      completion: (Result<Data, NetworkError>) -> Void) {
+                      completion: @escaping (Result<UIImage, NetworkError>) -> Void) {
         guard let url = URL(string: urlString) else {
             completion(.failure(.missingData))
             return
         }
         
-        
-//        completion(.success(data))
+        KingfisherManager.shared.retrieveImage(with: url) { result in
+            switch result {
+            case .success(let imageResult):
+                let image = imageResult.image
+                completion(.success(image))
+                
+            case .failure(let error):
+                completion(.failure(.missingURL))
+            }
+        }
     }
 }

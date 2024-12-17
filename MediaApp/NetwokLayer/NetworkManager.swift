@@ -19,7 +19,6 @@ protocol NetworkManagerProtocol {
 //MARK: NetworkManagerProtocol
 struct NetworkManager: NetworkManagerProtocol {
     private let router = NetworkRouter<UnsplashAPIEndPoint>()
-    private let imageLoader: ImageLoadingProtocol = ImageLoader()
     
     func getPhotos(count: Int,
                    completion: @escaping (Result<[RandomResponse], NetworkError>) -> Void) {
