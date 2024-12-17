@@ -26,6 +26,7 @@ protocol RandomViewPresenterProtocol: AnyObject {
     func showDetailedInfo()
     func fetchImages(isNewList: Bool)
     func downloadImage(for: IndexPath)
+    func searchFor(_: String)
 }
 
 //MARK: - RandomPresenter
@@ -61,34 +62,19 @@ final class RandomPresenter: RandomViewPresenterProtocol {
         networkManager.getPhotos(count: 20) { [weak self] result in
             switch result {
             case .success(let response):
-                if let photos = self?.formattedResponse(response) {
-                    if isNewList {
-                        self?.photos = photos
-                    } else {
-                        self?.photos?.append(contentsOf: photos)
-                    }
-                }
-                DispatchQueue.main.async {
-                    if let count = self?.photos?.count {
-                        self?.view?.updateCollection(count: count)
-                    }
-                }
+                self?.handleResponse(weakSelf: self,
+                                     photos: response,
+                                     isNewList: isNewList)
                 
             case .failure(let error):
-                DispatchQueue.main.async {
-                    self?.view?.showAlert(title: "An error caused",
-                                          message: error.rawValue)
-                }
+                self?.sendError(weakSelf: self, error: error)
             }
         }
     }
     
     func downloadImage(for indexPath: IndexPath) {
         guard let urlString = photos?[indexPath.row].urlString else {
-            DispatchQueue.main.async {
-                self.view?.showAlert(title: "An error caused",
-                                     message: NetworkError.unknown.rawValue)
-            }
+            sendError(weakSelf: self, error: .missingURL)
             return
         }
         
@@ -98,10 +84,21 @@ final class RandomPresenter: RandomViewPresenterProtocol {
                 self?.view?.setImage(image, for: indexPath)
                 
             case .failure(let error):
-                DispatchQueue.main.async {
-                    self?.view?.showAlert(title: "An error caused",
-                                          message: error.rawValue)
-                }
+                self?.sendError(weakSelf: self, error: error)
+            }
+        }
+    }
+    
+    func searchFor(_ text: String) {
+        networkManager.searchPhotos(keyword: text) { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.handleResponse(weakSelf: self,
+                                     photos: response,
+                                     isNewList: true)
+                
+            case .failure(let error):
+                self?.sendError(weakSelf: self, error: error)
             }
         }
     }
@@ -119,6 +116,30 @@ extension RandomPresenter {
         }
         
         return photos
+    }
+    
+    private func handleResponse(weakSelf: RandomPresenter?,
+                                photos: [BasicPhotoResponse],
+                                isNewList: Bool) {
+        if let photos = weakSelf?.formattedResponse(photos) {
+            if isNewList {
+                weakSelf?.photos = photos
+            } else {
+                weakSelf?.photos?.append(contentsOf: photos)
+            }
+        }
+        DispatchQueue.main.async {
+            if let count = weakSelf?.photos?.count {
+                weakSelf?.view?.updateCollection(count: count)
+            }
+        }
+    }
+    
+    private func sendError(weakSelf: RandomPresenter?, error: NetworkError) {
+        DispatchQueue.main.async {
+            weakSelf?.view?.showAlert(title: "An error caused",
+                                     message: error.rawValue)
+        }
     }
     
     private func resetKingfisher() {

@@ -132,7 +132,8 @@ extension RandomViewController: UICollectionViewDelegateFlowLayout {
 //MARK: - UISearchBarDelegate
 extension RandomViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        guard let text = searchBar.text else { return }
+        presenter?.searchFor(text)
     }
 }
 
@@ -142,7 +143,7 @@ extension RandomViewController: RandomViewProtocol {
         refreshControl.endRefreshing()
         
         elementsCount = count
-        collectionView.reloadData()
+        collectionView.reloadSections(IndexSet(integer: 0))
     }
     
     func setImage(_ image: UIImage, for indexPath: IndexPath) {
