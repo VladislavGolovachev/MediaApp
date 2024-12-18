@@ -33,6 +33,7 @@ final class FavoriteViewController: UIViewController {
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.fetchPhotos()
         
         view.backgroundColor = GlobalConstants.Color.background
         customizeBars()
