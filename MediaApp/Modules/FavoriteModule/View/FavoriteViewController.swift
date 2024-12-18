@@ -33,12 +33,9 @@ final class FavoriteViewController: UIViewController {
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.fetchPhotos()
         
         view.backgroundColor = GlobalConstants.Color.background
         customizeBars()
-        
-        tabBarController?.delegate = self
         
         view.addSubview(tableView)
         setupConstraints()
@@ -47,6 +44,8 @@ final class FavoriteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         tabBarController?.tabBar.isHidden = false
+        
+        presenter?.fetchPhotos()
     }
 }
 
@@ -79,17 +78,6 @@ extension FavoriteViewController: UITableViewDataSource {
 extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.showDetailedInfo(for: indexPath)
-    }
-}
-
-//MARK: - UITabBarControllerDelegate
-extension FavoriteViewController: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController,
-                          didSelectTab selectedTab: UITab,
-                          previousTab: UITab?) {
-        if selectedTab.identifier == GlobalConstants.TabIdentifier.second {
-            presenter?.fetchPhotos()
-        }
     }
 }
 

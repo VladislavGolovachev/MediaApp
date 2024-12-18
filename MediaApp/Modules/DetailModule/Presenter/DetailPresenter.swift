@@ -62,8 +62,6 @@ final class DetailPresenter: DetailViewPresenterProtocol {
         self.networkManager = networkManager
         self.imageLoader = imageLoader
         self.photoID = id
-        
-        print(photoID, "detail")
     }
     
     // MARK: - Functions
