@@ -38,6 +38,8 @@ final class FavoriteViewController: UIViewController {
         view.backgroundColor = GlobalConstants.Color.background
         customizeBars()
         
+        tabBarController?.delegate = self
+        
         view.addSubview(tableView)
         setupConstraints()
     }
@@ -77,6 +79,17 @@ extension FavoriteViewController: UITableViewDataSource {
 extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.showDetailedInfo(for: indexPath)
+    }
+}
+
+//MARK: - UITabBarControllerDelegate
+extension FavoriteViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController,
+                          didSelectTab selectedTab: UITab,
+                          previousTab: UITab?) {
+        if selectedTab.identifier == GlobalConstants.TabIdentifier.second {
+            presenter?.fetchPhotos()
+        }
     }
 }
 

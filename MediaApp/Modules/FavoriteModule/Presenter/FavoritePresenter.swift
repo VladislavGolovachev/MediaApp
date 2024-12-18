@@ -56,6 +56,7 @@ final class FavoritePresenter: FavoriteViewPresenterProtocol {
                                    message: StorageError.fetchingFailed.rawValue)
                     return
                 }
+                self.photos = [FavoritePhotoModel]()
                 for photo in photos {
                     if let image = UIImage(data: photo.imageData) {
                         let favPhoto = FavoritePhotoModel(image: image,

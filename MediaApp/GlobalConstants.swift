@@ -18,4 +18,8 @@ enum GlobalConstants {
         static let title: UIFont    = .systemFont(ofSize: 18,
                                                   weight: .semibold)
     }
+    enum TabIdentifier {
+        static let first = "Pictures"
+        static let second = "Favorites"
+    }
 }

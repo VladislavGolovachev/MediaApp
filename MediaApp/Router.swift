@@ -59,13 +59,13 @@ extension Router {
         let tabController = UITabBarController(tabs: [
             UITab(title: "Pictures",
                   image: UIImage(systemName: "photo"),
-                  identifier: String(),
+                  identifier: GlobalConstants.TabIdentifier.first,
                   viewControllerProvider: { _ in
                       randomNavVC
                   }),
             UITab(title: "Favorites",
                   image: UIImage(systemName: "heart"),
-                  identifier: String(),
+                  identifier: GlobalConstants.TabIdentifier.second,
                   viewControllerProvider: { _ in
                       favNavVC
                   }),
