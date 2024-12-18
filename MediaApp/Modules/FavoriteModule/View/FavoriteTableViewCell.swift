@@ -23,6 +23,8 @@ final class FavoriteTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.backgroundColor = GlobalConstants.Color.background
         
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.layer.cornerRadius = LocalConstants.cornerRadius
         
         return imageView
