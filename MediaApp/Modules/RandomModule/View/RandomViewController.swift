@@ -77,6 +77,8 @@ final class RandomViewController: UIViewController {
 //MARK: - Actions
 extension RandomViewController {
     @objc func refreshAction(_ sender: UIRefreshControl) {
+        sender.beginRefreshing()
+        
         elementsCount = 0
         presenter?.fetchImages(isNewList: true, keyword: nil)
     }
@@ -200,6 +202,7 @@ extension RandomViewController {
         searchController.searchBar.delegate = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.overrideUserInterfaceStyle = .light
+        searchController.searchBar.searchBarStyle = .prominent
         
         navigationItem.searchController = searchController
     }
