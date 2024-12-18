@@ -34,7 +34,11 @@ struct Assembly: AssemblyProtocol {
     
     func createFavoriteModule(router: RouterProtocol) -> UIViewController {
         let vc = FavoriteViewController()
-        let presenter = FavoritePresenter(view: vc, router: router)
+        let dataManager = DataManager()
+        
+        let presenter = FavoritePresenter(view: vc,
+                                          router: router,
+                                          dataManager: dataManager)
         
         vc.presenter = presenter
         

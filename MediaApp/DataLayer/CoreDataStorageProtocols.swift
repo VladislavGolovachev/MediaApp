@@ -17,7 +17,7 @@ protocol CoreDataStorage {
 protocol CoreDataStorageManager {
     associatedtype ObjectType: NSManagedObject
     
-    func fetch(for: String) throws -> [ObjectType]
+    func fetch(for: String?) throws -> [ObjectType]
     func persist(with keyedValues: [String: Any]) throws
     func delete(for: String) throws
 }

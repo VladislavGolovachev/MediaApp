@@ -36,7 +36,7 @@ final class RandomPresenter: RandomViewPresenterProtocol {
     var networkManager: NetworkManagerProtocol
     var imageLoader: ImageLoadingProtocol?
     
-    private var photos: [PhotoModel]?
+    private var photos: [RandomPhotoModel]?
     private var searchingKeyword: String?
     private var page = 1
     
@@ -125,11 +125,11 @@ extension RandomPresenter {
         }
     }
     
-    private func formattedResponse(_ response: [BasicPhotoResponse]) -> [PhotoModel] {
-        var photos = [PhotoModel]()
+    private func formattedResponse(_ response: [BasicPhotoResponse]) -> [RandomPhotoModel] {
+        var photos = [RandomPhotoModel]()
         
         for item in response {
-            let photo = PhotoModel(id: item.id,
+            let photo = RandomPhotoModel(id: item.id,
                                    urlString: item.urls.small)
             photos.append(photo)
         }

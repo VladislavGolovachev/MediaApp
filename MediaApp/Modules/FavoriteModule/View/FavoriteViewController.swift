@@ -28,6 +28,8 @@ final class FavoriteViewController: UIViewController {
         return tableView
     }()
     
+    private var elementsCount = 0
+    
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +51,7 @@ final class FavoriteViewController: UIViewController {
 extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return elementsCount
     }
     
     func tableView(_ tableView: UITableView,
@@ -59,6 +61,12 @@ extension FavoriteViewController: UITableViewDataSource {
         as? FavoriteTableViewCell ?? FavoriteTableViewCell()
         
         cell.selectionStyle = .none
+        if let image = presenter?.image(for: indexPath) {
+            cell.setImage(image)
+        }
+        if let author = presenter?.author(for: indexPath) {
+            cell.setAuthor(author)
+        }
         
         return cell
     }
@@ -67,13 +75,36 @@ extension FavoriteViewController: UITableViewDataSource {
 //MARK: - UITableViewDelegate
 extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.showDetailedInfo()
+        presenter?.showDetailedInfo(for: indexPath)
     }
 }
 
 //MARK: - FavoriteViewProtocol
 extension FavoriteViewController: FavoriteViewProtocol {
+    func updateTable(count: Int) {
+        elementsCount = count
+        tableView.reloadData()
+    }
     
+    func setCellInfo(_ photoModel: FavoritePhotoModel, for indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath)
+        as? FavoriteTableViewCell else {
+            return
+        }
+        
+        cell.setImage(photoModel.image)
+        cell.setAuthor(photoModel.author)
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "Close", style: .default)
+        alert.addAction(action)
+        
+        present(alert, animated: true)
+    }
 }
 
 //MARK: - Private Functions

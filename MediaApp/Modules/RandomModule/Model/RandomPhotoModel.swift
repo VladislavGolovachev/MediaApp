@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct PhotoModel {
+struct RandomPhotoModel {
     let id: String
     let urlString: String
 }

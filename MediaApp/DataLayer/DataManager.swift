@@ -15,7 +15,7 @@ final class DataManager: CoreDataStorageManager {
     
     private let storage: CoreDataStorage = Storage()
         
-    func fetch(for id: String) throws -> [PhotoEntity] {
+    func fetch(for id: String? = nil) throws -> [PhotoEntity] {
         var photos: [PhotoEntity]?
         try storage.backgroundContext.performAndWait { [weak self] in
             guard let strongSelf = self else {
@@ -31,9 +31,11 @@ final class DataManager: CoreDataStorageManager {
                                                   ascending: true)
             request.sortDescriptors = [sortDescriptor]
             
-            let key = PhotoKeys.id.rawValue
-            let predicate = NSPredicate(format: "\(key) = %@", id)
-            request.predicate = predicate
+            if let id {
+                let key = PhotoKeys.id.rawValue
+                let predicate = NSPredicate(format: "\(key) = %@", id)
+                request.predicate = predicate
+            }
             
             do {
                 photos = try strongSelf.storage.backgroundContext.fetch(request)

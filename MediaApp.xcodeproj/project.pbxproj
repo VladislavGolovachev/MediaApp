@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		726D19A3578F9A2FADDC5277 /* Pods_MediaApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D331A6FC25F5A447E845A2 /* Pods_MediaApp.framework */; };
+		8240992E2D1268BC00BA1A59 /* FavoritePhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8240992D2D1268B800BA1A59 /* FavoritePhotoModel.swift */; };
 		826B19672D103AA10056D4F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B195D2D103AA10056D4F9 /* AppDelegate.swift */; };
 		826B19682D103AA10056D4F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19642D103AA10056D4F9 /* SceneDelegate.swift */; };
 		826B19692D103AA10056D4F9 /* RandomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19652D103AA10056D4F9 /* RandomViewController.swift */; };
@@ -39,7 +40,7 @@
 		826B19BB2D11B1490056D4F9 /* CoreDataStorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19BA2D11B1380056D4F9 /* CoreDataStorageProtocols.swift */; };
 		826B19BD2D11B1690056D4F9 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19BC2D11B1650056D4F9 /* StorageError.swift */; };
 		826B19D72D11BD650056D4F9 /* PhotoKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D62D11BD5E0056D4F9 /* PhotoKeys.swift */; };
-		826B19DB2D11CD380056D4F9 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19DA2D11CD290056D4F9 /* PhotoModel.swift */; };
+		826B19DB2D11CD380056D4F9 /* RandomPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19DA2D11CD290056D4F9 /* RandomPhotoModel.swift */; };
 		82A760192D125998005E7077 /* MediaAppModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82A760172D125998005E7077 /* MediaAppModel.xcdatamodeld */; };
 		82A7601C2D1259BE005E7077 /* PhotoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A7601B2D1259BE005E7077 /* PhotoEntity+CoreDataProperties.swift */; };
 		82A7601D2D1259BE005E7077 /* PhotoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A7601A2D1259BE005E7077 /* PhotoEntity+CoreDataClass.swift */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		13995F5C85815FE0562696A6 /* Pods-MediaApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MediaApp.release.xcconfig"; path = "Target Support Files/Pods-MediaApp/Pods-MediaApp.release.xcconfig"; sourceTree = "<group>"; };
 		3C4F987F9C904B573D32E597 /* Pods-MediaApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MediaApp.debug.xcconfig"; path = "Target Support Files/Pods-MediaApp/Pods-MediaApp.debug.xcconfig"; sourceTree = "<group>"; };
+		8240992D2D1268B800BA1A59 /* FavoritePhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePhotoModel.swift; sourceTree = "<group>"; };
 		826B19452D1039FA0056D4F9 /* MediaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		826B195D2D103AA10056D4F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		826B195E2D103AA10056D4F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,7 +84,7 @@
 		826B19BA2D11B1380056D4F9 /* CoreDataStorageProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageProtocols.swift; sourceTree = "<group>"; };
 		826B19BC2D11B1650056D4F9 /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
 		826B19D62D11BD5E0056D4F9 /* PhotoKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoKeys.swift; sourceTree = "<group>"; };
-		826B19DA2D11CD290056D4F9 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		826B19DA2D11CD290056D4F9 /* RandomPhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotoModel.swift; sourceTree = "<group>"; };
 		82A760182D125998005E7077 /* MediaAppModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MediaAppModel.xcdatamodel; sourceTree = "<group>"; };
 		82A7601A2D1259BE005E7077 /* PhotoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		82A7601B2D1259BE005E7077 /* PhotoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -108,6 +110,22 @@
 				F4D331A6FC25F5A447E845A2 /* Pods_MediaApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8240992B2D12688600BA1A59 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				826B19DA2D11CD290056D4F9 /* RandomPhotoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8240992C2D1268AD00BA1A59 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8240992D2D1268B800BA1A59 /* FavoritePhotoModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		826B193C2D1039FA0056D4F9 = {
@@ -152,7 +170,6 @@
 		826B19702D104F5E0056D4F9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				826B19DA2D11CD290056D4F9 /* PhotoModel.swift */,
 				826B19722D1051F80056D4F9 /* RandomModule */,
 				826B19732D10525A0056D4F9 /* FavoriteModule */,
 				826B19742D1052640056D4F9 /* DetailModule */,
@@ -165,6 +182,7 @@
 			children = (
 				826B197D2D1052F90056D4F9 /* View */,
 				826B197C2D1052EE0056D4F9 /* Presenter */,
+				8240992B2D12688600BA1A59 /* Model */,
 			);
 			path = RandomModule;
 			sourceTree = "<group>";
@@ -174,6 +192,7 @@
 			children = (
 				826B197E2D1053100056D4F9 /* View */,
 				826B197F2D1053160056D4F9 /* Presenter */,
+				8240992C2D1268AD00BA1A59 /* Model */,
 			);
 			path = FavoriteModule;
 			sourceTree = "<group>";
@@ -453,6 +472,7 @@
 				826B19892D1055940056D4F9 /* Assembly.swift in Sources */,
 				826B199B2D116AF80056D4F9 /* NetworkRouter.swift in Sources */,
 				826B19682D103AA10056D4F9 /* SceneDelegate.swift in Sources */,
+				8240992E2D1268BC00BA1A59 /* FavoritePhotoModel.swift in Sources */,
 				826B19972D1164AC0056D4F9 /* UIImageExtension.swift in Sources */,
 				826B198D2D105BC60056D4F9 /* DetailPresenter.swift in Sources */,
 				826B197A2D1052DD0056D4F9 /* DetailViewController.swift in Sources */,
@@ -470,7 +490,7 @@
 				826B19B72D11AEDB0056D4F9 /* DataManager.swift in Sources */,
 				826B19A22D11802F0056D4F9 /* UnsplashAPIEndPoint.swift in Sources */,
 				826B19BD2D11B1690056D4F9 /* StorageError.swift in Sources */,
-				826B19DB2D11CD380056D4F9 /* PhotoModel.swift in Sources */,
+				826B19DB2D11CD380056D4F9 /* RandomPhotoModel.swift in Sources */,
 				826B19692D103AA10056D4F9 /* RandomViewController.swift in Sources */,
 				826B19852D10543A0056D4F9 /* RandomPresenter.swift in Sources */,
 				826B19B92D11B1200056D4F9 /* Storage.swift in Sources */,
