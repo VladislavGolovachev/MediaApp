@@ -13,19 +13,23 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     private let backView: UIView = {
         let view = UIView()
-        view.backgroundColor = LocalConstants.cellColor
+        view.backgroundColor = GlobalConstants.Color.cell
         view.layer.cornerRadius = LocalConstants.cornerRadius
         
         return view
     }()
+    
     private lazy var pictureImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = GlobalConstants.Color.background
         
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.layer.cornerRadius = LocalConstants.cornerRadius
         
         return imageView
     }()
+    
     private let authorNameLabel: UILabel = {
         let label = UILabel()
         label.font = LocalConstants.font
@@ -36,6 +40,8 @@ final class FavoriteTableViewCell: UITableViewCell {
     //MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        backgroundColor = GlobalConstants.Color.background
         
         addSubviews()
         setupConstraints()
@@ -112,7 +118,6 @@ extension FavoriteTableViewCell {
     private enum LocalConstants {
         static let font: UIFont = .systemFont(ofSize: 18,
                                               weight: .medium)
-        static let cellColor = UIColor(white: 0.9, alpha: 0.3)
         static let cornerRadius: CGFloat = 16
         
         enum Padding {

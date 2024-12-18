@@ -27,6 +27,7 @@ final class DetailViewController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.spacing = LocalConstants.spacing
+        stackView.alpha = 0
         
         return stackView
     }()
@@ -35,6 +36,7 @@ final class DetailViewController: UIViewController {
         let imageView = UIImageView()
         
         imageView.backgroundColor = GlobalConstants.Color.background
+        imageView.alpha = 0
         
         return imageView
     }()
@@ -61,27 +63,40 @@ final class DetailViewController: UIViewController {
         return label
     }()
     
+    private let activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .darkGray
+        
+        return activityIndicator
+    }()
+    
     private var isFavorite = false
+    private lazy var favoriteButton: UIBarButtonItem = {
+        UIBarButtonItem(image: UIImage(systemName: LocalConstants.ImageName.notFavorite),
+                        style: .plain,
+                        target: self,
+                        action: #selector(addToFavsAction(_:)))
+    }()
     
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = GlobalConstants.Color.background
-        tabBarController?.tabBar.isHidden = true
+        activityIndicatorView.startAnimating()
         
-        let button = UIBarButtonItem(image: UIImage(systemName: "heart"),
-                                     style: .plain,
-                                     target: self,
-                                     action: #selector(addToFavsAction(_:)))
-        navigationItem.rightBarButtonItem = button
+        presenter?.updateScreen()
+        
+        view.backgroundColor = GlobalConstants.Color.background
+        
+        tabBarController?.tabBar.isHidden = true
+        navigationItem.rightBarButtonItem = favoriteButton
         
         addSubviews()
         setupConstraints()
     }
     
     override func viewDidLayoutSubviews() {
-        //FIXME: Change imageView.image to the presenter.image like
         guard let image = imageView.image else { return }
         
         imageView.image = image.resizedTo(constant: view.bounds.width,
@@ -105,19 +120,64 @@ final class DetailViewController: UIViewController {
 //MARK: - Actions
 extension DetailViewController {
     @objc func addToFavsAction(_ sender: UIBarButtonItem) {
-        if isFavorite {
-            sender.image = UIImage(systemName: "heart")
-        } else {
-            sender.image = UIImage(systemName: "heart.fill")
-        }
-        
         isFavorite.toggle()
+        
+        if isFavorite {
+            sender.image = UIImage(systemName: LocalConstants.ImageName.favorite)
+            presenter?.addToFavorites()
+        } else {
+            sender.image = UIImage(systemName: LocalConstants.ImageName.notFavorite)
+            presenter?.removeFromFavorites()
+        }
     }
 }
 
 //MARK: - DetailViewProtocol
 extension DetailViewController: DetailViewProtocol {
+    func setImage(_ image: UIImage) {
+        imageView.image = image
+    }
     
+    func setAuthor(_ author: String) {
+        authorLabel.text = author
+    }
+    
+    func setDownloads(_ downloads: String) {
+        downloadsAmountLabel.text = downloads
+    }
+    
+    func setLocationDate(_ locationDate: String) {
+        locationDateLabel.text = locationDate
+    }
+    
+    func setPictureFavorite() {
+        isFavorite = true
+        favoriteButton.image = UIImage(systemName: LocalConstants.ImageName.favorite)
+    }
+    
+    func animate() {
+        activityIndicatorView.stopAnimating()
+        
+        UIView.animate(withDuration: 0.8) {
+            self.imageView.alpha = 1
+        } completion: { _ in
+            UIView.animate(withDuration: 0.4) {
+                self.stackView.alpha = 1
+            }
+        }
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "Close", style: .default) { [weak self] _ in
+            self?.presenter?.showPreviousScreen()
+        }
+        alert.addAction(action)
+        
+        present(alert, animated: true)
+    }
 }
 
 //MARK: Private Functions
@@ -129,16 +189,22 @@ extension DetailViewController {
         
         scrollView.addSubview(imageView)
         scrollView.addSubview(stackView)
+        
         view.addSubview(scrollView)
+        view.addSubview(activityIndicatorView)
     }
     
     private func setupConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
             scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
@@ -165,6 +231,10 @@ extension DetailViewController {
         static let spacing: CGFloat = 10
         static let padding: CGFloat = 6
         
+        enum ImageName {
+            static let favorite     = "heart.fill"
+            static let notFavorite  = "heart"
+        }
         enum Font {
             static let author: UIFont       = .systemFont(ofSize: 18,
                                                           weight: .medium)

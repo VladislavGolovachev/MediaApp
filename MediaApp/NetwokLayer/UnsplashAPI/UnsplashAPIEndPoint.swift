@@ -10,7 +10,7 @@ import Foundation
 enum UnsplashAPIEndPoint {
     case photo(id: String)
     case randomPhotos(count: Int)
-    case search(keyword: String)
+    case search(keyword: String, page: Int)
 }
 
 extension UnsplashAPIEndPoint: EndPointType {
@@ -31,7 +31,7 @@ extension UnsplashAPIEndPoint: EndPointType {
         case .randomPhotos(_):
             return "photos/random"
             
-        case .search(_):
+        case .search(_, _):
             return "search/photos"
         }
     }
@@ -46,7 +46,9 @@ extension UnsplashAPIEndPoint: EndPointType {
             queryItems.append(URLQueryItem(name: "count",
                                            value: String(count)))
             
-        case .search(let keyword):
+        case .search(let keyword, let page):
+            queryItems.append(URLQueryItem(name: "page",
+                                           value: String(page)))
             queryItems.append(URLQueryItem(name: "per_page",
                                            value: String(20)))
             queryItems.append(URLQueryItem(name: "query",

@@ -2,7 +2,7 @@
 //  PhotoEntity+CoreDataProperties.swift
 //  MediaApp
 //
-//  Created by Владислав Головачев on 17.12.2024.
+//  Created by Владислав Головачев on 18.12.2024.
 //
 //
 
@@ -16,10 +16,10 @@ extension PhotoEntity {
 
     @NSManaged public var author: String?
     @NSManaged public var creationDate: Date?
-    @NSManaged public var imageData: Data?
-    @NSManaged public var keyDate: Date?
+    @NSManaged public var downloads: Int64
+    @NSManaged public var id: String
+    @NSManaged public var imageData: Data
     @NSManaged public var location: String?
-
 }
 
 extension PhotoEntity : Identifiable {

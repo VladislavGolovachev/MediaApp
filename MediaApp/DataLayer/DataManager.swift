@@ -10,12 +10,12 @@ import CoreData
 
 //MARK: CoreDataStorageManager
 final class DataManager: CoreDataStorageManager {
-    typealias KeyType = Date
+    typealias KeyType = String
     typealias ObjectType = PhotoEntity
     
     private let storage: CoreDataStorage = Storage()
         
-    func fetch(amongObjectsWithKeyedValues keyedValues: [String : Any]?) throws -> [PhotoEntity] {
+    func fetch(for id: String? = nil) throws -> [PhotoEntity] {
         var photos: [PhotoEntity]?
         try storage.backgroundContext.performAndWait { [weak self] in
             guard let strongSelf = self else {
@@ -26,13 +26,14 @@ final class DataManager: CoreDataStorageManager {
             }
             
             let request = PhotoEntity.fetchRequest()
-            let sortDescriptor = NSSortDescriptor(key: PhotoKeys.keyDate.rawValue,
-                                                   ascending: true)
+
+            let sortDescriptor = NSSortDescriptor(key: PhotoKeys.creationDate.rawValue,
+                                                  ascending: true)
             request.sortDescriptors = [sortDescriptor]
             
-            let key = PhotoKeys.keyDate.rawValue
-            if let date = keyedValues?[key] as? NSDate {
-                let predicate = NSPredicate(format: "\(key) == %@", date)
+            if let id {
+                let key = PhotoKeys.id.rawValue
+                let predicate = NSPredicate(format: "\(key) = %@", id)
                 request.predicate = predicate
             }
             
@@ -49,7 +50,7 @@ final class DataManager: CoreDataStorageManager {
         throw StorageError.missingObject
     }
     
-    func persist(with keyedValues: [String : Any]) throws {
+    func persist(with keyedValues: [String: Any]) throws {
         try storage.backgroundContext.performAndWait { [weak self] in
             if let error = self?.storage.loadingError {
                 throw error
@@ -65,12 +66,12 @@ final class DataManager: CoreDataStorageManager {
         }
     }
     
-    func delete(for date: Date, amongObjectsWithKeyedValues keyedValues: [String : Any]?) throws {
+    func delete(for id: String) throws {
         try storage.backgroundContext.performAndWait { [weak self] in
             guard let strongSelf = self else {
                 throw StorageError.unknown
             }
-            let photos = try strongSelf.fetch(amongObjectsWithKeyedValues: keyedValues)
+            let photos = try strongSelf.fetch(for: id)
             
             strongSelf.storage.backgroundContext.delete(photos[0])
             try strongSelf.saveContext()

@@ -8,7 +8,7 @@
 import Foundation
 
 struct URLPhoto: Decodable {
-    let regular: String
+    let small: String
 }
 
 struct User: Decodable {

@@ -14,7 +14,7 @@ final class RandomCollectionViewCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         
-        imageView.backgroundColor = GlobalConstants.Color.background
+        imageView.backgroundColor = GlobalConstants.Color.cell
         imageView.layer.cornerRadius = LocalConstants.cornerRadius
         
         imageView.contentMode = .scaleAspectFill
@@ -26,6 +26,8 @@ final class RandomCollectionViewCell: UICollectionViewCell {
     //MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        backgroundColor = GlobalConstants.Color.background
         
         contentView.addSubview(imageView)
         setupConstraints()

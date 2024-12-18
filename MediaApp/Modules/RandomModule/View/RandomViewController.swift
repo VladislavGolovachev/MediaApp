@@ -11,7 +11,17 @@ final class RandomViewController: UIViewController {
     //MARK: - Variables
     var presenter: RandomViewPresenterProtocol?
     
-    var cellSize: CGSize = .zero
+    private var cellSize: CGSize = .zero
+    private var elementsCount = 0
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self,
+                          action: #selector(refreshAction(_:)),
+                          for: .valueChanged)
+        
+        return refresh
+    }()
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -26,11 +36,7 @@ final class RandomViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         
-        let refresh = UIRefreshControl()
-        refresh.addTarget(self,
-                          action: #selector(refreshAction(_:)),
-                          for: .valueChanged)
-        collectionView.refreshControl = refresh
+        collectionView.refreshControl = refreshControl
         
         collectionView.register(RandomCollectionViewCell.self,
                                 forCellWithReuseIdentifier: RandomCollectionViewCell.reuseIdentifier)
@@ -44,6 +50,7 @@ final class RandomViewController: UIViewController {
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.fetchImages(isNewList: true, keyword: nil)
         
         view.backgroundColor = GlobalConstants.Color.background
         customizeBars()
@@ -53,7 +60,9 @@ final class RandomViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        let spaceWidth = CGFloat(LocalConstants.itemsPerRow - 1) * LocalConstants.spacing + LocalConstants.padding * 2.0
+        let spaceWidth = CGFloat(LocalConstants.itemsPerRow - 1) * LocalConstants.spacing
+        + LocalConstants.padding * 2.0
+        
         let cellWidth = Int((view.bounds.width - spaceWidth) / CGFloat(LocalConstants.itemsPerRow))
         
         cellSize = CGSize(width: cellWidth, height: cellWidth)
@@ -61,6 +70,7 @@ final class RandomViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
         tabBarController?.tabBar.isHidden = false
     }
 }
@@ -68,7 +78,10 @@ final class RandomViewController: UIViewController {
 //MARK: - Actions
 extension RandomViewController {
     @objc func refreshAction(_ sender: UIRefreshControl) {
-        sender.endRefreshing()
+        navigationItem.searchController?.isActive = false
+        
+        elementsCount = 0
+        presenter?.fetchImages(isNewList: true, keyword: nil)
     }
 }
 
@@ -76,7 +89,7 @@ extension RandomViewController {
 extension RandomViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return elementsCount
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -86,7 +99,9 @@ extension RandomViewController: UICollectionViewDataSource {
                                                       for: indexPath)
         as? RandomCollectionViewCell ?? RandomCollectionViewCell()
         
-        cell.backgroundColor = GlobalConstants.Color.background
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            self.presenter?.downloadImage(for: indexPath)
+        }
         
         return cell
     }
@@ -94,8 +109,17 @@ extension RandomViewController: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegate
 extension RandomViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter?.showDetailedInfo()
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        presenter?.showDetailedInfo(for: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay
+                        cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        if indexPath.row == elementsCount - 1 {
+            presenter?.fetchImages(isNewList: false, keyword: nil)
+        }
     }
 }
 
@@ -111,13 +135,41 @@ extension RandomViewController: UICollectionViewDelegateFlowLayout {
 //MARK: - UISearchBarDelegate
 extension RandomViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
         
+        presenter?.fetchImages(isNewList: true, keyword: text)
     }
 }
 
 //MARK: - RandomViewProtocol
 extension RandomViewController: RandomViewProtocol {
+    func updateCollection(count: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.refreshControl.endRefreshing()
+        }
+        
+        elementsCount = count
+        collectionView.reloadSections(IndexSet(integer: 0))
+    }
     
+    func setImage(_ image: UIImage, for indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? RandomCollectionViewCell
+        cell?.setImage(image)
+    }
+    
+    func showAlert(title: String, message: String) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.refreshControl.endRefreshing()
+        }
+        
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "Close", style: .default)
+        alert.addAction(action)
+        
+        present(alert, animated: true)
+    }
 }
 
 //MARK: - Private Functions
@@ -152,6 +204,8 @@ extension RandomViewController {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.overrideUserInterfaceStyle = .light
+        searchController.searchBar.searchBarStyle = .prominent
         
         navigationItem.searchController = searchController
     }

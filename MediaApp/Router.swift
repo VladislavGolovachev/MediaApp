@@ -10,7 +10,7 @@ import UIKit
 //MARK: RouterProtocol
 protocol RouterProtocol: AnyObject {
     func initiateRootViewController() -> UIViewController
-    func next()
+    func next(id: String)
     func pop()
 }
 
@@ -30,11 +30,11 @@ final class Router: RouterProtocol {
         return tabController as UIViewController
     }
     
-    func next() {
+    func next(id: String) {
         guard let navVC =
         rootViewController?.selectedViewController as? UINavigationController else { return }
 
-        let vc = assembly.createDetailModule(router: self)
+        let vc = assembly.createDetailModule(router: self, id: id)
         
         navVC.pushViewController(vc, animated: true)
     }
@@ -59,13 +59,13 @@ extension Router {
         let tabController = UITabBarController(tabs: [
             UITab(title: "Pictures",
                   image: UIImage(systemName: "photo"),
-                  identifier: String(),
+                  identifier: GlobalConstants.TabIdentifier.first,
                   viewControllerProvider: { _ in
                       randomNavVC
                   }),
             UITab(title: "Favorites",
                   image: UIImage(systemName: "heart"),
-                  identifier: String(),
+                  identifier: GlobalConstants.TabIdentifier.second,
                   viewControllerProvider: { _ in
                       favNavVC
                   }),

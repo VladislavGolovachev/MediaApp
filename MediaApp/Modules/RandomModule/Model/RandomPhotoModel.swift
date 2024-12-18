@@ -1,11 +1,13 @@
 //
-//  RandomResponse.swift
+//  PhotoModel.swift
 //  MediaApp
 //
 //  Created by Владислав Головачев on 17.12.2024.
 //
 
-struct RandomResponse: Decodable {
+import Foundation
+
+struct RandomPhotoModel {
     let id: String
-    let urls: URLPhoto
+    let urlString: String
 }

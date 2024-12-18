@@ -11,14 +11,21 @@ import UIKit
 protocol AssemblyProtocol {
     func createRandomModule(router: RouterProtocol) -> UIViewController
     func createFavoriteModule(router: RouterProtocol) -> UIViewController
-    func createDetailModule(router: RouterProtocol) -> UIViewController
+    func createDetailModule(router: RouterProtocol,
+                            id: String) -> UIViewController
 }
 
 //MARK: - Assembly
 struct Assembly: AssemblyProtocol {
     func createRandomModule(router: RouterProtocol) -> UIViewController {
         let vc = RandomViewController()
-        let presenter = RandomPresenter(view: vc, router: router)
+        let networkManager = NetworkManager()
+        let imageLoader = ImageLoader()
+        
+        let presenter = RandomPresenter(view: vc,
+                                        router: router,
+                                        imageLoader: imageLoader,
+                                        networkManager: networkManager)
         
         vc.presenter = presenter
         
@@ -27,16 +34,30 @@ struct Assembly: AssemblyProtocol {
     
     func createFavoriteModule(router: RouterProtocol) -> UIViewController {
         let vc = FavoriteViewController()
-        let presenter = FavoritePresenter(view: vc, router: router)
+        let dataManager = DataManager()
+        
+        let presenter = FavoritePresenter(view: vc,
+                                          router: router,
+                                          dataManager: dataManager)
         
         vc.presenter = presenter
         
         return vc
     }
     
-    func createDetailModule(router: RouterProtocol) -> UIViewController {
+    func createDetailModule(router: RouterProtocol,
+                            id: String) -> UIViewController {
         let vc = DetailViewController()
-        let presenter = DetailPresenter(view: vc, router: router)
+        let networkManager = NetworkManager()
+        let dataManager = DataManager()
+        let imageLoader = ImageLoader()
+        
+        let presenter = DetailPresenter(view: vc,
+                                        router: router,
+                                        dataManager: dataManager,
+                                        networkManager: networkManager,
+                                        imageLoader: imageLoader,
+                                        id: id)
         
         vc.presenter = presenter
         

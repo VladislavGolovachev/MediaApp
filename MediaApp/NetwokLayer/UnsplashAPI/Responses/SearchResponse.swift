@@ -8,10 +8,10 @@
 import Foundation
 
 struct SearchResponse: Decodable {
-    let results: [SearchPhoto]
+    let results: [BasicPhotoResponse]
 }
 
-struct SearchPhoto: Decodable {
+struct BasicPhotoResponse: Decodable {
     let id: String
     let urls: URLPhoto
 }
