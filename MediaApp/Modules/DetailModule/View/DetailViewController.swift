@@ -72,6 +72,12 @@ final class DetailViewController: UIViewController {
     }()
     
     private var isFavorite = false
+    private lazy var favoriteButton: UIBarButtonItem = {
+        UIBarButtonItem(image: UIImage(systemName: "heart"),
+                        style: .plain,
+                        target: self,
+                        action: #selector(addToFavsAction(_:)))
+    }()
     
     //MARK: - ViewController's Lifecycle
     override func viewDidLoad() {
@@ -82,13 +88,9 @@ final class DetailViewController: UIViewController {
         presenter?.updateScreen()
         
         view.backgroundColor = GlobalConstants.Color.background
-        tabBarController?.tabBar.isHidden = true
         
-        let button = UIBarButtonItem(image: UIImage(systemName: "heart"),
-                                     style: .plain,
-                                     target: self,
-                                     action: #selector(addToFavsAction(_:)))
-        navigationItem.rightBarButtonItem = button
+        tabBarController?.tabBar.isHidden = true
+        navigationItem.rightBarButtonItem = favoriteButton
         
         addSubviews()
         setupConstraints()
@@ -119,15 +121,15 @@ final class DetailViewController: UIViewController {
 //MARK: - Actions
 extension DetailViewController {
     @objc func addToFavsAction(_ sender: UIBarButtonItem) {
+        isFavorite.toggle()
+        
         if isFavorite {
-            sender.image = UIImage(systemName: "heart")
+            sender.image = UIImage(systemName: "heart.fill")
             presenter?.addToFavorites()
         } else {
-            sender.image = UIImage(systemName: "heart.fill")
+            sender.image = UIImage(systemName: "heart")
             presenter?.removeFromFavorites()
         }
-        
-        isFavorite.toggle()
     }
 }
 
@@ -147,6 +149,11 @@ extension DetailViewController: DetailViewProtocol {
     
     func setLocationDate(_ locationDate: String) {
         locationDateLabel.text = locationDate
+    }
+    
+    func setPictureFavorite() {
+        isFavorite = true
+        favoriteButton.image = UIImage(systemName: "heart.fill")
     }
     
     func animate() {

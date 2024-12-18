@@ -13,6 +13,8 @@ protocol DetailViewProtocol: AnyObject {
     func setAuthor(_: String)
     func setDownloads(_: String)
     func setLocationDate(_: String)
+    
+    func setPictureFavorite()
     func animate()
     
     func showAlert(title: String, message: String)
@@ -41,6 +43,9 @@ final class DetailPresenter: DetailViewPresenterProtocol {
     var networkManager: NetworkManagerProtocol
     var imageLoader: ImageLoadingProtocol?
     
+    private let queue = DispatchQueue(label: "queue-presenter-vladislavgolovachev",
+                                      qos: .utility,
+                                      attributes: .concurrent)
     private var photoID: String
     private var photoInfo: PhotoInfo?
     
@@ -61,55 +66,71 @@ final class DetailPresenter: DetailViewPresenterProtocol {
     
     // MARK: - Functions
     func updateScreen() {
-        if let photoEntity = isAbleToFetchPhotoFromCoreData(id: photoID) {
-            handleEntity(photoEntity)
-        } else {
-            networkManager.getPhotoInfo(id: photoID) { [weak self] result in
-                switch result {
-                case .success(let response):
-                    self?.handleResponse(weakSelf: self, response)
-                    
-                case .failure(let error):
-                    self?.sendError(weakSelf: self, message: error.rawValue)
+        queue.async {
+            if let photoEntity = self.isAbleToFetchPhotoFromCoreData(id: self.photoID) {
+                DispatchQueue.main.async {
+                    self.view?.setPictureFavorite()
+                }
+                self.handleEntity(photoEntity)
+            } else {
+                self.networkManager.getPhotoInfo(id: self.photoID) { [weak self] result in
+                    switch result {
+                    case .success(let response):
+                        self?.handleResponse(weakSelf: self, response)
+                        
+                    case .failure(let error):
+                        self?.sendError(weakSelf: self, message: error.rawValue)
+                    }
                 }
             }
         }
     }
-    enum PhotoKeys: String {
-        case author         = "author"
-        case creationDate   = "creationDate"
-        case imageData      = "imageData"
-        case id             = "id"
-        case location       = "location"
-    }
+    
     func addToFavorites() {
         guard let photoInfo else { return }
         
-//        do {
-//            try dataManager?.persist(with: [
-//                PhotoKeys.author: photoInfo.author,
-//                PhotoKeys.creationDate: ,
-//                PhotoKeys.imageData: photoInfo.image.data,
-//                PhotoKeys.id: photoID,
-//                PhotoKeys.location: photoInfo.locationDate,
-//                PhotoKeys.downloads: photoInfo.downloads
-//            ])
-//        } catch {
-//            if let error = error as? StorageError {
-//                sendError(weakSelf: self, message: error.rawValue)
-//            } else {
-//                sendError(weakSelf: self,
-//                          message: StorageError.unableToSaveData.rawValue)
-//            }
-//        }
+        queue.async {
+            do {
+                let keyedValues: [String: Any] = [
+                    PhotoKeys.author.rawValue: photoInfo.author,
+                    PhotoKeys.creationDate.rawValue: photoInfo.date,
+                    PhotoKeys.imageData.rawValue: photoInfo.image.pngData(),
+                    PhotoKeys.id.rawValue: self.photoID,
+                    PhotoKeys.location.rawValue: photoInfo.location,
+                    PhotoKeys.downloads.rawValue: photoInfo.downloads
+                ]
+                
+                try self.dataManager?.persist(with: keyedValues)
+            } catch {
+                if let error = error as? StorageError {
+                    self.sendError(weakSelf: self, message: error.rawValue)
+                } else {
+                    self.sendError(weakSelf: self,
+                                   message: StorageError.unableToSaveData.rawValue)
+                }
+            }
+        }
     }
     
     func removeFromFavorites() {
-        
+        queue.async {
+            do {
+                try self.dataManager?.delete(for: self.photoID)
+            } catch {
+                if let error = error as? StorageError {
+                    self.sendError(weakSelf: self, message: error.rawValue)
+                } else {
+                    self.sendError(weakSelf: self,
+                                   message: StorageError.unableToSaveData.rawValue)
+                }
+            }
+        }
     }
     
     func showPreviousScreen() {
-        router.pop()
+        DispatchQueue.main.async {
+            self.router.pop()
+        }
     }
 }
 

@@ -38,11 +38,11 @@
 		826B19B92D11B1200056D4F9 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19B82D11B1200056D4F9 /* Storage.swift */; };
 		826B19BB2D11B1490056D4F9 /* CoreDataStorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19BA2D11B1380056D4F9 /* CoreDataStorageProtocols.swift */; };
 		826B19BD2D11B1690056D4F9 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19BC2D11B1650056D4F9 /* StorageError.swift */; };
-		826B19D02D11BA8D0056D4F9 /* MediaModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 826B19CE2D11BA8D0056D4F9 /* MediaModel.xcdatamodeld */; };
-		826B19D32D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D22D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift */; };
-		826B19D42D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D12D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift */; };
 		826B19D72D11BD650056D4F9 /* PhotoKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19D62D11BD5E0056D4F9 /* PhotoKeys.swift */; };
 		826B19DB2D11CD380056D4F9 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826B19DA2D11CD290056D4F9 /* PhotoModel.swift */; };
+		82A760192D125998005E7077 /* MediaAppModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82A760172D125998005E7077 /* MediaAppModel.xcdatamodeld */; };
+		82A7601C2D1259BE005E7077 /* PhotoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A7601B2D1259BE005E7077 /* PhotoEntity+CoreDataProperties.swift */; };
+		82A7601D2D1259BE005E7077 /* PhotoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A7601A2D1259BE005E7077 /* PhotoEntity+CoreDataClass.swift */; };
 		82AF469F2D1221FB0023EF20 /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF469E2D1221FB0023EF20 /* PhotoInfo.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,11 +81,11 @@
 		826B19B82D11B1200056D4F9 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		826B19BA2D11B1380056D4F9 /* CoreDataStorageProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageProtocols.swift; sourceTree = "<group>"; };
 		826B19BC2D11B1650056D4F9 /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
-		826B19CF2D11BA8D0056D4F9 /* MediaModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MediaModel.xcdatamodel; sourceTree = "<group>"; };
-		826B19D12D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PhotoEntity+CoreDataClass.swift"; path = "MediaApp/PhotoEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		826B19D22D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PhotoEntity+CoreDataProperties.swift"; path = "MediaApp/PhotoEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		826B19D62D11BD5E0056D4F9 /* PhotoKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoKeys.swift; sourceTree = "<group>"; };
 		826B19DA2D11CD290056D4F9 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		82A760182D125998005E7077 /* MediaAppModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MediaAppModel.xcdatamodel; sourceTree = "<group>"; };
+		82A7601A2D1259BE005E7077 /* PhotoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		82A7601B2D1259BE005E7077 /* PhotoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		82AF469E2D1221FB0023EF20 /* PhotoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
 		F4D331A6FC25F5A447E845A2 /* Pods_MediaApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -309,9 +309,9 @@
 		826B19D52D11BB6E0056D4F9 /* CoreDataModel */ = {
 			isa = PBXGroup;
 			children = (
-				826B19CE2D11BA8D0056D4F9 /* MediaModel.xcdatamodeld */,
-				826B19D12D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift */,
-				826B19D22D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift */,
+				82A7601A2D1259BE005E7077 /* PhotoEntity+CoreDataClass.swift */,
+				82A7601B2D1259BE005E7077 /* PhotoEntity+CoreDataProperties.swift */,
+				82A760172D125998005E7077 /* MediaAppModel.xcdatamodeld */,
 			);
 			path = CoreDataModel;
 			sourceTree = "<group>";
@@ -441,6 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82A760192D125998005E7077 /* MediaAppModel.xcdatamodeld in Sources */,
 				826B19B12D1193CA0056D4F9 /* NetworkManager.swift in Sources */,
 				826B19BB2D11B1490056D4F9 /* CoreDataStorageProtocols.swift in Sources */,
 				826B19A42D1180480056D4F9 /* SearchResponse.swift in Sources */,
@@ -462,14 +463,13 @@
 				82AF469F2D1221FB0023EF20 /* PhotoInfo.swift in Sources */,
 				826B19952D1094C80056D4F9 /* FavoriteTableViewCell.swift in Sources */,
 				826B19872D1054CA0056D4F9 /* Router.swift in Sources */,
+				82A7601C2D1259BE005E7077 /* PhotoEntity+CoreDataProperties.swift in Sources */,
+				82A7601D2D1259BE005E7077 /* PhotoEntity+CoreDataClass.swift in Sources */,
 				826B19782D1052D50056D4F9 /* FavoriteViewController.swift in Sources */,
 				826B198B2D105B960056D4F9 /* FavoritePresenter.swift in Sources */,
 				826B19B72D11AEDB0056D4F9 /* DataManager.swift in Sources */,
 				826B19A22D11802F0056D4F9 /* UnsplashAPIEndPoint.swift in Sources */,
-				826B19D02D11BA8D0056D4F9 /* MediaModel.xcdatamodeld in Sources */,
 				826B19BD2D11B1690056D4F9 /* StorageError.swift in Sources */,
-				826B19D32D11BB2E0056D4F9 /* PhotoEntity+CoreDataProperties.swift in Sources */,
-				826B19D42D11BB2E0056D4F9 /* PhotoEntity+CoreDataClass.swift in Sources */,
 				826B19DB2D11CD380056D4F9 /* PhotoModel.swift in Sources */,
 				826B19692D103AA10056D4F9 /* RandomViewController.swift in Sources */,
 				826B19852D10543A0056D4F9 /* RandomPresenter.swift in Sources */,
@@ -698,13 +698,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		826B19CE2D11BA8D0056D4F9 /* MediaModel.xcdatamodeld */ = {
+		82A760172D125998005E7077 /* MediaAppModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				826B19CF2D11BA8D0056D4F9 /* MediaModel.xcdatamodel */,
+				82A760182D125998005E7077 /* MediaAppModel.xcdatamodel */,
 			);
-			currentVersion = 826B19CF2D11BA8D0056D4F9 /* MediaModel.xcdatamodel */;
-			path = MediaModel.xcdatamodeld;
+			currentVersion = 82A760182D125998005E7077 /* MediaAppModel.xcdatamodel */;
+			path = MediaAppModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

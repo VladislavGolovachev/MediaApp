@@ -15,7 +15,7 @@ final class Storage: CoreDataStorage {
     }
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "MediaModel")
+        let container = NSPersistentContainer(name: "MediaAppModel")
         container.loadPersistentStores { [weak self] _, error in
             if let error {
                 self?._loadingError = .unableToLoadData
