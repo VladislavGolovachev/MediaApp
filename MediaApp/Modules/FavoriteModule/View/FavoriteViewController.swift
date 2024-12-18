@@ -43,9 +43,10 @@ final class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        tabBarController?.tabBar.isHidden = false
         
         presenter?.fetchPhotos()
+        
+        tabBarController?.tabBar.isHidden = false
     }
 }
 

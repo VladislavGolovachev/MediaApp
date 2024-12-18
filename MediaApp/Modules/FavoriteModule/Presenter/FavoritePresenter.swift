@@ -9,9 +9,9 @@ import UIKit
 
 //MARK: FavoriteViewProtocol
 protocol FavoriteViewProtocol: AnyObject {
-    func showAlert(title: String, message: String)
     func updateTable(count: Int)
     func setCellInfo(_: FavoritePhotoModel, for: IndexPath)
+    func showAlert(title: String, message: String)
 }
 
 //MARK: - FavoriteViewPresenterProtocol
@@ -22,6 +22,7 @@ protocol FavoriteViewPresenterProtocol: AnyObject {
     
     func fetchPhotos()
     func showDetailedInfo(for: IndexPath)
+    
     func image(for indexPath: IndexPath) -> UIImage?
     func author(for indexPath: IndexPath) -> String?
 }
@@ -109,14 +110,19 @@ extension FavoritePresenter {
         guard let image = UIImage(data: entity.imageData) else {
             sendError(title: LocalConstants.errorTitle,
                       message: StorageError.missingObject.rawValue)
-            return FavoritePhotoModel(image: UIImage(),
-                                      author: entity.author ?? "Not stated",
-                                      id: entity.id)
+            
+            return FavoritePhotoModel(
+                image: UIImage(),
+                author: entity.author ?? "Not stated",
+                id: entity.id
+            )
         }
         
-        return FavoritePhotoModel(image: image,
-                                  author: entity.author ?? "Not stated",
-                                  id: entity.id)
+        return FavoritePhotoModel(
+            image: image,
+            author: entity.author ?? "Not stated",
+            id: entity.id
+        )
     }
 }
 

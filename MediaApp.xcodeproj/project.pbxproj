@@ -278,8 +278,8 @@
 			children = (
 				826B19B02D1193CA0056D4F9 /* NetworkManager.swift */,
 				826B19B42D1197AF0056D4F9 /* ImageLoader.swift */,
-				826B199A2D116AF80056D4F9 /* NetworkRouter.swift */,
 				826B19A72D118ADB0056D4F9 /* UnsplashAPI */,
+				826B199A2D116AF80056D4F9 /* NetworkRouter.swift */,
 				826B199C2D116B180056D4F9 /* EndPointType.swift */,
 			);
 			path = NetwokLayer;

@@ -18,6 +18,7 @@ final class FavoriteTableViewCell: UITableViewCell {
         
         return view
     }()
+    
     private lazy var pictureImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = GlobalConstants.Color.background
@@ -26,6 +27,7 @@ final class FavoriteTableViewCell: UITableViewCell {
         
         return imageView
     }()
+    
     private let authorNameLabel: UILabel = {
         let label = UILabel()
         label.font = LocalConstants.font

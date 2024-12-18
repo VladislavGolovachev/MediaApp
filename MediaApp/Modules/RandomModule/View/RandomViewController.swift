@@ -70,6 +70,7 @@ final class RandomViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
         tabBarController?.tabBar.isHidden = false
     }
 }
@@ -77,7 +78,7 @@ final class RandomViewController: UIViewController {
 //MARK: - Actions
 extension RandomViewController {
     @objc func refreshAction(_ sender: UIRefreshControl) {
-        sender.beginRefreshing()
+        navigationItem.searchController?.isActive = false
         
         elementsCount = 0
         presenter?.fetchImages(isNewList: true, keyword: nil)
@@ -135,6 +136,7 @@ extension RandomViewController: UICollectionViewDelegateFlowLayout {
 extension RandomViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
+        
         presenter?.fetchImages(isNewList: true, keyword: text)
     }
 }
@@ -159,6 +161,7 @@ extension RandomViewController: RandomViewProtocol {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.refreshControl.endRefreshing()
         }
+        
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)

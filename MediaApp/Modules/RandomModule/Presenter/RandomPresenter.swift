@@ -36,6 +36,9 @@ final class RandomPresenter: RandomViewPresenterProtocol {
     var networkManager: NetworkManagerProtocol
     var imageLoader: ImageLoadingProtocol?
     
+    private let queue = DispatchQueue(label: "queue-presenter-vladislavgolovachev",
+                                      qos: .utility,
+                                      attributes: .concurrent)
     private var photos: [RandomPhotoModel]?
     private var searchingKeyword: String?
     private var page = 1
@@ -55,23 +58,28 @@ final class RandomPresenter: RandomViewPresenterProtocol {
         if let photos {
             router.next(id: photos[indexPath.row].id)
         } else {
-            view?.showAlert(title: "An error caused",
-                            message: NetworkError.missingData.rawValue)
+            sendError(weakSelf: self, error: .missingData)
         }
     }
     
     func fetchImages(isNewList: Bool, keyword: String?) {
-        if isNewList {
-            searchingKeyword = keyword
-            page = 1
+        queue.async {
+            if let count = self.photos?.count, count % 20 != 0 {
+                return
+            }
             
-            resetKingfisher()
-        }
-        
-        if let searchingKeyword {
-            searchFor(searchingKeyword, isNewList: isNewList)
-        } else {
-            getImages(isNewList: isNewList)
+            if isNewList {
+                self.searchingKeyword = keyword
+                self.page = 1
+                
+                self.resetKingfisher()
+            }
+            
+            if let searchingKeyword = self.searchingKeyword {
+                self.searchFor(searchingKeyword, isNewList: isNewList)
+            } else {
+                self.getImages(isNewList: isNewList)
+            }
         }
     }
     
@@ -147,6 +155,7 @@ extension RandomPresenter {
                 weakSelf?.photos?.append(contentsOf: photos)
             }
         }
+        
         DispatchQueue.main.async {
             if let count = weakSelf?.photos?.count {
                 weakSelf?.view?.updateCollection(count: count)
@@ -157,7 +166,7 @@ extension RandomPresenter {
     private func sendError(weakSelf: RandomPresenter?, error: NetworkError) {
         DispatchQueue.main.async {
             weakSelf?.view?.showAlert(title: "An error caused",
-                                     message: error.rawValue)
+                                      message: error.rawValue)
         }
     }
     

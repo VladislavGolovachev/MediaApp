@@ -5,7 +5,7 @@
 //  Created by Владислав Головачев on 17.12.2024.
 //
 
-import UIKit
+import Foundation
 
 struct RandomPhotoModel {
     let id: String

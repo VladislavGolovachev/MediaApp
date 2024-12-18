@@ -87,20 +87,9 @@ final class DetailPresenter: DetailViewPresenterProtocol {
     }
     
     func addToFavorites() {
-        guard let photoInfo else { return }
-        
         queue.async {
             do {
-                let keyedValues: [String: Any] = [
-                    PhotoKeys.author.rawValue: photoInfo.author,
-                    PhotoKeys.creationDate.rawValue: photoInfo.date,
-                    PhotoKeys.imageData.rawValue: photoInfo.image.pngData(),
-                    PhotoKeys.id.rawValue: self.photoID,
-                    PhotoKeys.location.rawValue: photoInfo.location,
-                    PhotoKeys.downloads.rawValue: photoInfo.downloads
-                ]
-                
-                try self.dataManager?.persist(with: keyedValues)
+                try self.dataManager?.persist(with: self.formedKeyedValues())
             } catch {
                 if let error = error as? StorageError {
                     self.sendError(weakSelf: self, message: error.rawValue)
@@ -136,6 +125,21 @@ final class DetailPresenter: DetailViewPresenterProtocol {
 
 //MARK: Private Functions
 extension DetailPresenter {
+    private func formedKeyedValues() -> [String: Any] {
+        guard let photoInfo else { return [:] }
+            
+        let keyedValues: [String: Any] = [
+            PhotoKeys.author.rawValue: photoInfo.author,
+            PhotoKeys.creationDate.rawValue: photoInfo.date,
+            PhotoKeys.imageData.rawValue: photoInfo.image.pngData(),
+            PhotoKeys.id.rawValue: self.photoID,
+            PhotoKeys.location.rawValue: photoInfo.location,
+            PhotoKeys.downloads.rawValue: photoInfo.downloads
+        ]
+        
+        return keyedValues
+    }
+    
     private func sendError(weakSelf: DetailPresenter?, message: String) {
         DispatchQueue.main.async {
             weakSelf?.view?.showAlert(title: "An error caused",
@@ -200,12 +204,12 @@ extension DetailPresenter {
     private func showPhotoInfo() {
         guard let photoInfo else { return }
         
-        let location = photoInfo.location ?? "Location not stated"
-        let date = formattedString(photoInfo.date) ?? "date not stated"
+        let location = photoInfo.location ?? LocalConstants.emptyLocation
+        let date = formattedString(photoInfo.date) ?? LocalConstants.emptyDate
         
         DispatchQueue.main.async {
             self.view?.setImage(photoInfo.image)
-            self.view?.setAuthor("Author: " + (photoInfo.author ?? "Author not stated"))
+            self.view?.setAuthor("Author: " + (photoInfo.author ?? LocalConstants.emptyAuthor))
             self.view?.setDownloads("Downloads: " + String(photoInfo.downloads))
             self.view?.setLocationDate(location + " (\(date))")
             
@@ -231,5 +235,14 @@ extension DetailPresenter {
         let string = dateFormatter.string(from: date)
         
         return string
+    }
+}
+
+//MARK: - Local Constants
+extension DetailPresenter {
+    private enum LocalConstants {
+        static let emptyAuthor = "Author not stated"
+        static let emptyLocation = "Location not stated"
+        static let emptyDate = "date not stated"
     }
 }

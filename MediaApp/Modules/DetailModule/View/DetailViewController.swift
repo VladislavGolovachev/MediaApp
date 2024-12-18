@@ -73,7 +73,7 @@ final class DetailViewController: UIViewController {
     
     private var isFavorite = false
     private lazy var favoriteButton: UIBarButtonItem = {
-        UIBarButtonItem(image: UIImage(systemName: "heart"),
+        UIBarButtonItem(image: UIImage(systemName: LocalConstants.ImageName.notFavorite),
                         style: .plain,
                         target: self,
                         action: #selector(addToFavsAction(_:)))
@@ -97,7 +97,6 @@ final class DetailViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        //FIXME: Change imageView.image to the presenter.image like
         guard let image = imageView.image else { return }
         
         imageView.image = image.resizedTo(constant: view.bounds.width,
@@ -124,10 +123,10 @@ extension DetailViewController {
         isFavorite.toggle()
         
         if isFavorite {
-            sender.image = UIImage(systemName: "heart.fill")
+            sender.image = UIImage(systemName: LocalConstants.ImageName.favorite)
             presenter?.addToFavorites()
         } else {
-            sender.image = UIImage(systemName: "heart")
+            sender.image = UIImage(systemName: LocalConstants.ImageName.notFavorite)
             presenter?.removeFromFavorites()
         }
     }
@@ -153,7 +152,7 @@ extension DetailViewController: DetailViewProtocol {
     
     func setPictureFavorite() {
         isFavorite = true
-        favoriteButton.image = UIImage(systemName: "heart.fill")
+        favoriteButton.image = UIImage(systemName: LocalConstants.ImageName.favorite)
     }
     
     func animate() {
@@ -232,6 +231,10 @@ extension DetailViewController {
         static let spacing: CGFloat = 10
         static let padding: CGFloat = 6
         
+        enum ImageName {
+            static let favorite     = "heart.fill"
+            static let notFavorite  = "heart"
+        }
         enum Font {
             static let author: UIFont       = .systemFont(ofSize: 18,
                                                           weight: .medium)

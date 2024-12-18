@@ -39,7 +39,7 @@ extension UnsplashAPIEndPoint: EndPointType {
     var queryItems: [URLQueryItem] {
         var queryItems = [URLQueryItem]()
         queryItems.append(URLQueryItem(name: "client_id",
-                                       value: "M8a_JbHtUCIMQztQkB7__-oUIrYjMS-5okt08zZ42gw"))
+                                       value: "R-fslVRnytnIiAVix3ZRQz0lgBbLKQ6vg4aEJeaIHmw"))
         
         switch self {
         case .randomPhotos(let count):
